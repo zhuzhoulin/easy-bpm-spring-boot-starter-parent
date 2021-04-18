@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pig.easy.bpm.api.mapper.HistoryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pig.easy.bpm.api.entity.HistoryDO">
+        <id column="history_id" property="historyId" />
+        <result column="apply_id" property="applyId" />
+        <result column="task_id" property="taskId" />
+        <result column="task_name" property="taskName" />
+        <result column="tenant_id" property="tenantId" />
+        <result column="system" property="system" />
+        <result column="platform" property="platform" />
+        <result column="approve_action_code" property="approveActionCode" />
+        <result column="approve_action_name" property="approveActionName" />
+        <result column="approve_opinion" property="approveOpinion" />
+        <result column="remarks" property="remarks" />
+        <result column="valid_state" property="validState" />
+        <result column="operator_id" property="operatorId" />
+        <result column="operator_name" property="operatorName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        `history_id`,`apply_id`, `task_id`, `task_name`, `tenant_id`, `system`, `platform`, `approve_action_code`, `approve_action_name`, `approve_opinion`, `remarks`, `valid_state`, `operator_id`, `operator_name`, `create_time`, `update_time`
+    </sql>
+
+</mapper>

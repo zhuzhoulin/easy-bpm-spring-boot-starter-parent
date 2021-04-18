@@ -1,0 +1,11 @@
+
+Spring Boot Version: ${spring-boot.version}
+
+ _____                 ______
+|  ___|                | ___ \
+| |__  __ _ ___ _   _  | |_/ /_ __  _ __ ___         EasyBpm: ${easy.bpm.config.version}
+|  __|/ _` / __| | | | | ___ \ '_ \| '_ ` _ \        Port: ${server.port}
+| |__| (_| \__ \ |_| | | |_/ / |_) | | | | | |       Pid: ${pid}
+\____/\__,_|___/\__, | \____/| .__/|_| |_| |_|       Console: http://${bpm.ip}:${server.port}${server.servlet.context-path}/index.html
+                 __/ |       | |                     http://120.77.218.141:9992/bpm-web/index.html
+                |___/        |_|

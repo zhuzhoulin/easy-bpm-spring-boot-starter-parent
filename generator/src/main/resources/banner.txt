@@ -1,0 +1,17 @@
+${AnsiColor.BRIGHT_GREEN}
+Spring Boot Version: ${spring-boot.version}
+
+ _____                 ______
+|  ___|                | ___ \
+| |__  __ _ ___ _   _  | |_/ /_ __  _ __ ___         EasyBpm ${application.version}
+|  __|/ _` / __| | | | | ___ \ '_ \| '_ ` _ \
+| |__| (_| \__ \ |_| | | |_/ / |_) | | | | | |       Pid: ${pid}
+\____/\__,_|___/\__, | \____/| .__/|_| |_| |_|
+                 __/ |       | |
+                |___/        |_|
+Application Name: ${spring.application.name}
+Application Profile: ${spring.profiles.active}
+Pid: ${pid}
+Server Port: ${server.port}
+Spring Boot Version: ${spring-boot.version}${spring-boot.formatted-version}
+${AnsiColor.DEFAULT}

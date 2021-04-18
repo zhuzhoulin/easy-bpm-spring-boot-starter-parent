@@ -1,0 +1,14 @@
+{"properties": [
+    {
+      "name": "easy.bpm.aspect.pointcut",
+      "type": "java.lang.String",
+      "defaultValue": "execution(public * com.pig.easy.bpm..*controller..*.*(..))",
+      "description": "Aspect pintcut."
+    },
+    {
+      "name": "easy.bpm.aspect.enable",
+      "type": "java.lang.Boolean",
+      "defaultValue": "true",
+      "description": "Enable aspect."
+    }
+]}

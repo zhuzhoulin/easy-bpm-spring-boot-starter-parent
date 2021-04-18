@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pig.easy.bpm.auth.mapper.ConfigTemplateMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pig.easy.bpm.auth.entity.ConfigTemplateDO">
+        <id column="template_id" property="templateId" />
+        <result column="template_code" property="templateCode" />
+        <result column="template_name" property="templateName" />
+        <result column="template_key" property="templateKey" />
+        <result column="template_value" property="templateValue" />
+        <result column="template_type" property="templateType" />
+        <result column="template_status" property="templateStatus" />
+        <result column="remarks" property="remarks" />
+        <result column="valid_state" property="validState" />
+        <result column="operator_id" property="operatorId" />
+        <result column="operator_name" property="operatorName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+      `template_id`,
+      `template_code`,
+      `template_name`,
+      `template_key`,
+      `template_value`,
+      `template_type`,
+      `template_status`,
+      `remarks`,
+      `valid_state`,
+      `operator_id`,
+      `operator_name`,
+      `create_time`,
+      `update_time`
+<!--
+        template_id, template_code, template_name, template_key, template_value, template_type, template_status, remarks, valid_state, operator_id, operator_name, create_time, update_time
+-->
+    </sql>
+
+    <select id="getListByCondition" parameterType="com.pig.easy.bpm.auth.dto.request.ConfigTemplateQueryDTO"
+            resultType="com.pig.easy.bpm.auth.dto.response.ConfigTemplateDTO">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            bpm_config_template t
+        where
+            1 = 1
+	   <if test="templateId != null and templateId > 0">
+	         and t.template_id = #{templateId}
+        </if>
+
+	   <if test="templateCode != null and templateCode != ''">
+	         and t.template_code = #{templateCode}
+        </if>
+
+	   <if test="templateName != null and templateName != ''">
+	         and t.template_name like concat('%',#{templateName},'%')
+        </if>
+
+	   <if test="templateKey != null and templateKey != ''">
+	         and t.template_key = #{templateKey}
+        </if>
+
+	   <if test="templateValue != null and templateValue != ''">
+	         and t.template_value = #{templateValue}
+        </if>
+
+	   <if test="templateType != null and templateType != ''">
+	         and t.template_type = #{templateType}
+        </if>
+
+        <if test="templateStatus != null and templateStatus > 0">
+	         and t.template_status = #{templateStatus}
+        </if>
+
+	   <if test="remarks != null and remarks != ''">
+	         and t.remarks = #{remarks}
+        </if>
+
+		<if test="validState != null and validState >= 0">
+	         and t.valid_state = #{validState}
+        </if>
+
+	   <if test="operatorId != null and operatorId > 0">
+	         and t.operator_id = #{operatorId}
+        </if>
+
+	   <if test="operatorName != null and operatorName != ''">
+	         and t.operator_name = #{operatorName}
+        </if>
+
+        <if test="createTime != null ">
+	         and t.create_time = #{createTime}
+        </if>
+
+        <if test="updateTime != null ">
+	         and t.update_time = #{updateTime}
+        </if>
+
+    </select>
+</mapper>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pig.easy.bpm.api.mapper.ProcessDetailMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pig.easy.bpm.api.entity.ProcessDetailDO">
+        <id column="process_detail_id" property="processDetailId" />
+        <result column="tenant_id" property="tenantId" />
+        <result column="process_id" property="processId" />
+        <result column="process_xml" property="processXml" />
+        <result column="definition_id" property="definitionId" />
+        <result column="apply_title_rule" property="applyTitleRule" />
+        <result column="apply_due_date" property="applyDueDate" />
+        <result column="auto_complete_first_node" property="autoCompleteFirstNode" />
+        <result column="publish_status" property="publishStatus" />
+        <result column="main_version" property="mainVersion" />
+        <result column="remarks" property="remarks" />
+        <result column="valid_state" property="validState" />
+        <result column="operator_id" property="operatorId" />
+        <result column="operator_name" property="operatorName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+      `process_detail_id`,
+      `tenant_id`,
+      `process_id`,
+      `process_xml`,
+      `definition_id`,
+      `apply_title_rule`,
+      `apply_due_date`,
+      `auto_complete_first_node`,
+      `publish_status`,
+      `main_version`,
+      `remarks`,
+      `valid_state`,
+      `operator_id`,
+      `operator_name`,
+      `create_time`,
+      `update_time`
+<!--
+        process_detail_id, tenant_id, process_id, process_xml, definition_id, apply_title_rule, apply_due_date, auto_complete_first_node, publish_status, main_version, remarks, valid_state, operator_id, operator_name, create_time, update_time
+-->
+    </sql>
+
+    <select id="getListByCondition" parameterType="com.pig.easy.bpm.api.dto.request.ProcessDetailQueryDTO"
+            resultType="com.pig.easy.bpm.api.dto.response.ProcessDetailDTO">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            bpm_process_detail t
+        where
+            1 = 1
+	   <if test="processDetailId != null and processDetailId > 0">
+	         and t.process_detail_id = #{processDetailId}
+        </if>
+
+	   <if test="tenantId != null and tenantId != ''">
+	         and t.tenant_id = #{tenantId}
+        </if>
+
+	   <if test="processId != null and processId > 0">
+	         and t.process_id = #{processId}
+        </if>
+
+	   <if test="processXml != null and processXml != ''">
+	         and t.process_xml = #{processXml}
+        </if>
+
+	   <if test="definitionId != null and definitionId != ''">
+	         and t.definition_id = #{definitionId}
+        </if>
+
+	   <if test="applyTitleRule != null and applyTitleRule != ''">
+	         and t.apply_title_rule = #{applyTitleRule}
+        </if>
+
+        <if test="applyDueDate != null ">
+	         and t.apply_due_date = #{applyDueDate}
+        </if>
+
+        <if test="autoCompleteFirstNode != null and autoCompleteFirstNode > 0">
+	         and t.auto_complete_first_node = #{autoCompleteFirstNode}
+        </if>
+
+        <if test="publishStatus != null and publishStatus > 0">
+	         and t.publish_status = #{publishStatus}
+        </if>
+
+        <if test="mainVersion != null and mainVersion > 0">
+	         and t.main_version = #{mainVersion}
+        </if>
+
+	   <if test="remarks != null and remarks != ''">
+	         and t.remarks = #{remarks}
+        </if>
+
+		<if test="validState != null and validState >= 0">
+	         and t.valid_state = #{validState}
+        </if>
+
+	   <if test="operatorId != null and operatorId > 0">
+	         and t.operator_id = #{operatorId}
+        </if>
+
+	   <if test="operatorName != null and operatorName != ''">
+	         and t.operator_name = #{operatorName}
+        </if>
+
+        <if test="createTime != null ">
+	         and t.create_time = #{createTime}
+        </if>
+
+        <if test="updateTime != null ">
+	         and t.update_time = #{updateTime}
+        </if>
+
+        order by t.process_detail_id desc
+    </select>
+</mapper>

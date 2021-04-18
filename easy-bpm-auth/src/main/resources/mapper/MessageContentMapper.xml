@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pig.easy.bpm.auth.mapper.MessageContentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pig.easy.bpm.auth.entity.MessageContentDO">
+        <id column="content_id" property="contentId" />
+        <result column="content_code" property="contentCode" />
+        <result column="tenant_id" property="tenantId" />
+        <result column="message_title" property="messageTitle" />
+        <result column="message_content" property="messageContent" />
+        <result column="message_type_code" property="messageTypeCode" />
+        <result column="message_system_code" property="messageSystemCode" />
+        <result column="message_platform" property="messagePlatform" />
+        <result column="process_id" property="processId" />
+        <result column="default_falg" property="defaultFalg" />
+        <result column="event_codes" property="eventCodes" />
+        <result column="event_names" property="eventNames" />
+        <result column="order" property="order" />
+        <result column="remarks" property="remarks" />
+        <result column="valid_state" property="validState" />
+        <result column="operator_id" property="operatorId" />
+        <result column="operator_name" property="operatorName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+      `content_id`,
+      `content_code`,
+      `tenant_id`,
+      `message_title`,
+      `message_content`,
+      `message_type_code`,
+      `message_system_code`,
+      `message_platform`,
+      `process_id`,
+      `default_falg`,
+      `event_codes`,
+      `event_names`,
+      `order`,
+      `remarks`,
+      `valid_state`,
+      `operator_id`,
+      `operator_name`,
+      `create_time`,
+      `update_time`
+<!--
+        content_id, content_code, tenant_id, message_title, message_content, message_type_code, message_system_code, message_platform, process_id, default_falg, event_codes, event_names, order, remarks, valid_state, operator_id, operator_name, create_time, update_time
+-->
+    </sql>
+
+    <select id="getListByCondition" parameterType="com.pig.easy.bpm.auth.dto.request.MessageContentQueryDTO"
+            resultType="com.pig.easy.bpm.auth.dto.response.MessageContentDTO">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            bpm_message_content t
+        where
+            1 = 1
+	   <if test="contentId != null and contentId > 0">
+	         and t.content_id = #{contentId}
+        </if>
+
+	   <if test="contentCode != null and contentCode != ''">
+	         and t.content_code = #{contentCode}
+        </if>
+
+	   <if test="tenantId != null and tenantId != ''">
+	         and t.tenant_id = #{tenantId}
+        </if>
+
+	   <if test="messageTitle != null and messageTitle != ''">
+	         and t.message_title like concat('%',#{messageTitle},'%')
+        </if>
+
+	   <if test="messageContent != null and messageContent != ''">
+	         and t.message_content = #{messageContent}
+        </if>
+
+	   <if test="messageTypeCode != null and messageTypeCode != ''">
+	         and t.message_type_code = #{messageTypeCode}
+        </if>
+
+	   <if test="messageSystemCode != null and messageSystemCode != ''">
+	         and t.message_system_code = #{messageSystemCode}
+        </if>
+
+	   <if test="messagePlatform != null and messagePlatform != ''">
+	         and t.message_platform = #{messagePlatform}
+        </if>
+
+        <if test="processId != null and processId > 0">
+	         and t.process_id = #{processId}
+        </if>
+
+        <if test="defaultFalg != null and defaultFalg > 0">
+	         and t.default_falg = #{defaultFalg}
+        </if>
+
+	   <if test="eventCodes != null and eventCodes != ''">
+	         and t.event_codes = #{eventCodes}
+        </if>
+
+	   <if test="eventNames != null and eventNames != ''">
+	         and t.event_names like concat('%',#{eventNames},'%')
+        </if>
+
+        <if test="order != null and order > 0">
+	         and t.order = #{order}
+        </if>
+
+	   <if test="remarks != null and remarks != ''">
+	         and t.remarks = #{remarks}
+        </if>
+
+		<if test="validState != null and validState >= 0">
+	         and t.valid_state = #{validState}
+        </if>
+
+        <if test="operatorId != null and operatorId > 0">
+	         and t.operator_id = #{operatorId}
+        </if>
+
+	   <if test="operatorName != null and operatorName != ''">
+	         and t.operator_name = #{operatorName}
+        </if>
+
+        <if test="createTime != null ">
+	         and t.create_time = #{createTime}
+        </if>
+
+        <if test="updateTime != null ">
+	         and t.update_time = #{updateTime}
+        </if>
+
+    </select>
+</mapper>

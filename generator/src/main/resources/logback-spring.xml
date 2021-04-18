@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <springProperty name="log.base" source="logback.path" defaultValue="/data/logs" />
+    <!-- 模块名称， 影响日志配置名，日志文件名 -->
+    <springProperty name="log.moduleName" source="logback.moduleName" defaultValue="bpmLogs" />
+    <!-- 日志文件大小 -->
+    <springProperty name="log.level" source="logback.level" defaultValue="INFO" />
+    <property name="log.max.size" value="100MB" />
+
+    <!--控制台输出 -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern><![CDATA[%date{yyyy-MM-dd HH:mm:ss.SSS} [%X{traceId}] %-5level[%.6thread]%logger{36}.%method<%L> %replace(%caller{1}){'(\bCaller.+?(?=\())|\r|\n|\s*|\t', ''} %msg%n]]></Pattern>
+        </encoder>
+    </appender>
+
+    <!-- 日志文件输出 -->
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${log.base}/${log.moduleName}/${log.moduleName}.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${log.base}/${log.moduleName}/archive/${log.moduleName}_%d{yyyy-MM-dd}.%i.log.zip
+            </FileNamePattern>
+            <!-- 当天的日志大小 超过${log.max.size}时,压缩日志并保存 -->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${log.max.size}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <!-- 日志输出的文件的格式 -->
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern><![CDATA[%date{yyyy-MM-dd HH:mm:ss.SSS}  [%X{traceId}  %-5level[%.6thread]%logger{36}.%method<%L> %msg%n]]></pattern>
+        </layout>
+    </appender>
+
+    <!-- [错误日志APPENDER] -->
+    <appender name="file-error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${log.base}/${log.moduleName}/${log.moduleName}-error.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${log.base}/${log.moduleName}/archive/${log.moduleName}_error_%d{yyyy-MM-dd}.%i.log
+            </FileNamePattern>
+            <!-- 当天的日志大小 超过${log.max.size}时,压缩日志并保存 -->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${log.max.size}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern><![CDATA[%date{yyyy-MM-dd HH:mm:ss.SSS} [%X{traceId}  %-5level[%.6thread]%logger{36}.%method<%L> %msg%n]]></pattern>
+        </layout>
+    </appender>
+
+    <appender name="slow-web" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${log.base}/${log.moduleName}/${log.moduleName}-slow-web.log
+        </File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${log.base}/${log.moduleName}/archive/${log.moduleName}_slow-web_%d{yyyy-MM-dd}.%i.log
+            </FileNamePattern>
+            <!-- 当天的日志大小 超过${log.max.size}时,压缩日志并保存 -->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${log.max.size}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern><![CDATA[%date{yyyy-MM-dd HH:mm:ss.SSS}  [%X{traceId} %-5level[%.6thread] %msg%n]]></pattern>
+        </layout>
+    </appender>
+
+    <appender name="slow-sql-dbhelper"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${log.base}/${log.moduleName}/${log.moduleName}-slow-sql-dbhelper.log
+        </File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${log.base}/${log.moduleName}/archive/${log.moduleName}_slow-sql-dbhelper_%d{yyyy-MM-dd}.%i.log
+            </FileNamePattern>
+            <!-- 当天的日志大小 超过${log.max.size}时,压缩日志并保存 -->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${log.max.size}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern><![CDATA[%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level[%.6thread]%logger{36}.%method<%L> %msg%n]]></pattern>
+        </layout>
+    </appender>
+
+    <appender name="slow-sql-druid"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${log.base}/${log.moduleName}/${log.moduleName}-slow-sql-druid.log
+        </File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${log.base}/${log.moduleName}/archive/${log.moduleName}_slow-sql-druid_%d{yyyy-MM-dd}.%i.log
+            </FileNamePattern>
+            <!-- 当天的日志大小 超过${log.max.size}时,压缩日志并保存 -->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${log.max.size}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern><![CDATA[%date{yyyy-MM-dd HH:mm:ss.SSS} [%X{traceId} %-5level[%.6thread]%logger{36}.%method<%L> %msg%n]]></pattern>
+        </layout>
+    </appender>
+
+    <logger name="SLOW_URL" level="INFO" additivity="false">
+        <appender-ref ref="slow-web" />
+    </logger>
+    <logger name="com.pugwoo.dbhelper" level="INFO" additivity="false">
+        <appender-ref ref="slow-sql-dbhelper" />
+    </logger>
+
+    <logger name="com.alibaba.druid" level="INFO" additivity="false">
+        <appender-ref ref="slow-sql-druid" />
+    </logger>
+
+    <!--<logger name="com.alibaba.nacos.client.naming" additivity="false">-->
+    <!--<level value="${log.level}"/>-->
+    <!--<appender-ref ref="file" />-->
+    <!--<appender-ref ref="stdout" />-->
+<!--</logger>-->
+
+    <root level="${log.level}">
+        <appender-ref ref="file"/>
+        <appender-ref ref="file-error" />
+        <appender-ref ref="stdout"/>
+    </root>
+
+</configuration>

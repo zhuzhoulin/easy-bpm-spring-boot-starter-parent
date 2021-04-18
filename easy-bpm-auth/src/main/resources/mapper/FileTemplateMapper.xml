@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pig.easy.bpm.auth.mapper.FileTemplateMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pig.easy.bpm.auth.entity.FileTemplateDO">
+        <id column="tempalte_id" property="tempalteId" />
+        <result column="process_id" property="processId" />
+        <result column="tenant_id" property="tenantId" />
+        <result column="file_name" property="fileName" />
+        <result column="file_md5_name" property="fileMd5Name" />
+        <result column="file_extend" property="fileExtend" />
+        <result column="file_path" property="filePath" />
+        <result column="file_size" property="fileSize" />
+        <result column="remarks" property="remarks" />
+        <result column="sort" property="sort" />
+        <result column="valid_state" property="validState" />
+        <result column="operator_id" property="operatorId" />
+        <result column="operator_name" property="operatorName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+      `tempalte_id`,
+      `process_id`,
+      `tenant_id`,
+      `file_name`,
+      `file_md5_name`,
+      `file_extend`,
+      `file_path`,
+      `file_size`,
+      `remarks`,
+      `sort`,
+      `valid_state`,
+      `operator_id`,
+      `operator_name`,
+      `create_time`,
+      `update_time`
+<!--
+        tempalte_id, process_id, tenant_id, file_name, file_md5_name, file_extend, file_path, file_size, remarks, sort, valid_state, operator_id, operator_name, create_time, update_time
+-->
+    </sql>
+
+    <select id="getListByCondition" parameterType="com.pig.easy.bpm.auth.dto.request.FileTemplateQueryDTO"
+            resultType="com.pig.easy.bpm.auth.dto.response.FileTemplateDTO">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            bpm_file_template t
+        where
+            1 = 1
+	   <if test="tempalteId != null and tempalteId != ''">
+	         and t.tempalte_id = #{tempalteId}
+        </if>
+
+        <if test="processId != null and processId > 0">
+	         and t.process_id = #{processId}
+        </if>
+
+	   <if test="tenantId != null and tenantId != ''">
+	         and t.tenant_id = #{tenantId}
+        </if>
+
+	   <if test="fileName != null and fileName != ''">
+	         and t.file_name like concat('%',#{fileName},'%')
+        </if>
+
+	   <if test="fileMd5Name != null and fileMd5Name != ''">
+	         and t.file_md5_name = #{fileMd5Name}
+        </if>
+
+	   <if test="fileExtend != null and fileExtend != ''">
+	         and t.file_extend = #{fileExtend}
+        </if>
+
+	   <if test="filePath != null and filePath != ''">
+	         and t.file_path = #{filePath}
+        </if>
+
+        <if test="fileSize != null ">
+	         and t.file_size = #{fileSize}
+        </if>
+
+	   <if test="remarks != null and remarks != ''">
+	         and t.remarks = #{remarks}
+        </if>
+
+        <if test="sort != null and sort > 0">
+	         and t.sort = #{sort}
+        </if>
+
+		<if test="validState != null and validState >= 0">
+	         and t.valid_state = #{validState}
+        </if>
+
+        <if test="operatorId != null and operatorId > 0">
+	         and t.operator_id = #{operatorId}
+        </if>
+
+	   <if test="operatorName != null and operatorName != ''">
+	         and t.operator_name = #{operatorName}
+        </if>
+
+        <if test="createTime != null ">
+	         and t.create_time = #{createTime}
+        </if>
+
+        <if test="updateTime != null ">
+	         and t.update_time = #{updateTime}
+        </if>
+
+    </select>
+</mapper>

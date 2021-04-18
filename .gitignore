@@ -1,6 +1,15 @@
 # Compiled class file
 *.class
 
+target/
+/target
+
+/.idea
+/.mvn
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**
+!**/src/test/*
+
 # Log file
 *.log
 
@@ -18,6 +27,27 @@
 *.zip
 *.tar.gz
 *.rar
+
+*.iml
+.gradle
+/local.properties
+/.idea
+.idea/caches/build_file_checksums.ser
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+.idea
+/.idea
+/.idea/vcs.xml
+/.idea/misc.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+/apk
+*.apk
+*.zip
+.idea/
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*

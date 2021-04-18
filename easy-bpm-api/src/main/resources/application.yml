@@ -1,0 +1,80 @@
+spring:
+#  main:
+#    allow-bean-definition-overriding: true
+  application:
+    name: api
+  profiles:
+    active: local
+#  datasource:
+#    url: jdbc:mysql://120.77.218.141:3306/easy_bpm?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+#    username: root
+#    password: 123456
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+
+#    schema-username: root
+#    schema-password: 123456
+#    data-username: root
+#    data-password: 123456
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    schema: classpath*:/db/init/schema-bpm*.sql
+#    data: classpath*:/db/init/data-bpm*.sql
+#    # DataSourceInitializationMode : always   embedded   never
+#    initialization-mode: always
+#    continue-on-error: true
+#    sql-script-encoding: utf-8
+#  shardingsphere:
+#    datasource:
+#      names: ds0
+#      ds0:
+#        type: com.zaxxer.hikari.HikariDataSource
+#        driver-class-name: com.mysql.cj.jdbc.Driver
+#        jdbc-url: jdbc:mysql://120.77.218.141:3306/sharding?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+#        username: root
+#        password: 123456
+#        filters: stat
+#        maxActive: 20
+#        initialSize: 1
+#        maxWait: 60000
+#        minIdle: 1
+#        timeBetweenEvictionRunsMillis: 60000
+#        minEvictableIdleTimeMillis: 300000
+#        validationQuery: select 'x'
+#        testWhileIdle: true
+#        testOnBorrow: false
+#        testOnReturn: false
+#        poolPreparedStatements: true
+#        maxOpenPreparedStatements: 20
+#    sharding:
+#      tables:
+#        t_user:
+#          key-generator:
+#            column: user_id
+#            type: SNOWFLAKE
+#          actual-data-nodes: ds0.t_user_${0..2}
+#          table-strategy:
+#            inline:
+#              sharding-column: user_id
+#              algorithm-expression: t_user_${user_id.longValue() % 3}
+#    props:
+#      sql:
+#        show: true
+#    enabled: true
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath*:/mapper/*.xml
+
+#easy:
+#  bpm:
+#    aspect:
+#     enable: true
+#     pointcut: execution(public * com.pig.easy.bpm.api.*server..*.*(..))
+#    api:
+#      init-data:
+#        auto-init-data: true
+#        continue-on-error: true
+#        sql-script-encoding: utf-8
+
+
+
+

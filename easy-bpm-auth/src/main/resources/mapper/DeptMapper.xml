@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pig.easy.bpm.auth.mapper.DeptMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pig.easy.bpm.auth.entity.DeptDO">
+        <id column="dept_id" property="deptId" />
+        <result column="dept_code" property="deptCode" />
+        <result column="dept_name" property="deptName" />
+        <result column="company_id" property="companyId" />
+        <result column="company_code" property="companyCode" />
+        <result column="business_line" property="businessLine" />
+        <result column="tenant_id" property="tenantId" />
+        <result column="dept_parent_id" property="deptParentId" />
+        <result column="dept_parent_code" property="deptParentCode" />
+        <result column="dept_level" property="deptLevel" />
+        <result column="dept_type" property="deptType" />
+        <result column="dept_type_code" property="deptTypeCode" />
+        <result column="remark" property="remark" />
+        <result column="dept_order" property="deptOrder" />
+        <result column="valid_state" property="validState" />
+        <result column="operator_id" property="operatorId" />
+        <result column="operator_name" property="operatorName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+      `dept_id`,
+      `dept_code`,
+      `dept_name`,
+      `company_id`,
+      `company_code`,
+      `business_line`,
+      `tenant_id`,
+      `dept_parent_id`,
+      `dept_parent_code`,
+      `dept_level`,
+      `dept_type`,
+      `dept_type_code`,
+      `remark`,
+      `dept_order`,
+      `valid_state`,
+      `operator_id`,
+      `operator_name`,
+      `create_time`,
+      `update_time`
+<!--
+        dept_id, dept_code, dept_name, company_id, company_code, business_line, tenant_id, dept_parent_id, dept_parent_code, dept_level, dept_type, dept_type_code, remark, dept_order, valid_state, operator_id, operator_name, create_time, update_time
+-->
+    </sql>
+
+    <select id="getListByCondition" parameterType="com.pig.easy.bpm.auth.dto.request.DeptQueryDTO"
+            resultType="com.pig.easy.bpm.auth.dto.response.DeptDTO">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            bpm_dept t
+        where
+            1 = 1
+	   <if test="deptId != null and deptId > 0">
+	         and t.dept_id = #{deptId}
+        </if>
+
+	   <if test="deptCode != null and deptCode != ''">
+	         and t.dept_code = #{deptCode}
+        </if>
+
+	   <if test="deptName != null and deptName != ''">
+	         and t.dept_name like concat('%',#{deptName},'%')
+        </if>
+
+	   <if test="companyId != null and companyId > 0">
+	         and t.company_id = #{companyId}
+        </if>
+
+	   <if test="companyCode != null and companyCode != ''">
+	         and t.company_code = #{companyCode}
+        </if>
+
+	   <if test="businessLine != null and businessLine != ''">
+	         and t.business_line = #{businessLine}
+        </if>
+
+	   <if test="tenantId != null and tenantId != ''">
+	         and t.tenant_id = #{tenantId}
+        </if>
+
+	   <if test="deptParentId != null and deptParentId > 0">
+	         and t.dept_parent_id = #{deptParentId}
+        </if>
+
+	   <if test="deptParentCode != null and deptParentCode != ''">
+	         and t.dept_parent_code = #{deptParentCode}
+        </if>
+
+        <if test="deptLevel != null and deptLevel > 0">
+	         and t.dept_level = #{deptLevel}
+        </if>
+
+	   <if test="deptType != null and deptType != ''">
+	         and t.dept_type = #{deptType}
+        </if>
+
+	   <if test="deptTypeCode != null and deptTypeCode != ''">
+	         and t.dept_type_code = #{deptTypeCode}
+        </if>
+
+	   <if test="remark != null and remark != ''">
+	         and t.remark = #{remark}
+        </if>
+
+        <if test="deptOrder != null and deptOrder > 0">
+	         and t.dept_order = #{deptOrder}
+        </if>
+
+		<if test="validState != null and validState >= 0">
+	         and t.valid_state = #{validState}
+        </if>
+
+	   <if test="operatorId != null and operatorId > 0">
+	         and t.operator_id = #{operatorId}
+        </if>
+
+	   <if test="operatorName != null and operatorName != ''">
+	         and t.operator_name = #{operatorName}
+        </if>
+
+        <if test="createTime != null ">
+	         and t.create_time = #{createTime}
+        </if>
+
+        <if test="updateTime != null ">
+	         and t.update_time = #{updateTime}
+        </if>
+
+    </select>
+</mapper>

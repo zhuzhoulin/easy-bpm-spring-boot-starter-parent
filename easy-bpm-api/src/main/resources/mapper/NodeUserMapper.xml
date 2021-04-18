@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pig.easy.bpm.api.mapper.NodeUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pig.easy.bpm.api.entity.NodeUserDO">
+        <id column="node_user_id" property="nodeUserId"/>
+        <result column="apply_id" property="applyId"/>
+        <result column="proc_inst_id" property="procInstId"/>
+        <result column="process_id" property="processId"/>
+        <result column="process_key" property="processKey"/>
+        <result column="node_id" property="nodeId"/>
+        <result column="node_name" property="nodeName"/>
+        <result column="parent_node_id" property="parentNodeId"/>
+        <result column="parent_node_name" property="parentNodeName"/>
+        <result column="definition_id" property="definitionId"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="assignee_user_id_list" property="assigneeUserIdList"/>
+        <result column="assignee_user_name_list" property="assigneeUserNameList"/>
+        <result column="skip" property="skip"/>
+        <result column="defaultSetAdmin" property="defaultSetAdmin"/>
+        <result column="error" property="error"/>
+        <result column="remarks" property="remarks"/>
+        <result column="valid_state" property="validState"/>
+        <result column="operator_id" property="operatorId"/>
+        <result column="operator_name" property="operatorName"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        `node_user_id`, `apply_id`, `proc_inst_id`, `process_id`, `process_key`, `node_id`, `node_name`,`parent_node_id`,`parent_node_name`, `definition_id`, `tenant_id`, `assignee_user_id_list`, `assignee_user_name_list`, `skip`, `default_set_admin`, `error`, `remarks`, `valid_state`, `operator_id`, `operator_name`, `create_time`, `update_time`
+    </sql>
+
+
+    <insert id="batchInsert" parameterType="com.pig.easy.bpm.api.entity.NodeUserDO">
+        insert INTO bpm_node_user
+        (
+        apply_id, proc_inst_id, process_id, process_key, node_id, node_name,parent_node_id,parent_node_name,
+        definition_id, tenant_id, assignee_user_id_list, assignee_user_name_list, `skip`, default_set_admin, `error`,
+        remarks, valid_state, operator_id, operator_name, create_time, update_time
+
+        ) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.applyId ,jdbcType=INTEGER},
+            #{item.procInstId ,jdbcType=VARCHAR},
+            #{item.processId,jdbcType=INTEGER},
+            #{item.processKey,jdbcType=VARCHAR},
+            #{item.nodeId ,jdbcType=VARCHAR},
+            #{item.nodeName ,jdbcType=VARCHAR},
+            #{item.parentNodeId ,jdbcType=VARCHAR},
+            #{item.parentNodeName ,jdbcType=VARCHAR},
+            #{item.definitionId,jdbcType=VARCHAR},
+            #{item.tenantId,jdbcType=VARCHAR},
+            #{item.assigneeUserIdList,jdbcType=VARCHAR},
+            #{item.assigneeUserNameList,jdbcType=VARCHAR},
+            #{item.skip,jdbcType=INTEGER},
+            #{item.defaultSetAdmin,jdbcType=INTEGER},
+            #{item.error,jdbcType=INTEGER},
+            #{item.remarks,jdbcType=VARCHAR},
+            1,
+            #{item.operatorId ,jdbcType=INTEGER},
+            #{item.operatorName,jdbcType=VARCHAR},
+            now(),
+            now()
+            )
+        </foreach>
+    </insert>
+</mapper>

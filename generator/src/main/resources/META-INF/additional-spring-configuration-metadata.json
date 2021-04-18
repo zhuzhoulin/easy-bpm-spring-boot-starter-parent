@@ -1,0 +1,42 @@
+{
+  "groups": [
+    {
+      "name": "easy.bpm.generator",
+      "type": "com.pig.easy.bpm.generator.property.EasyBpmGeneratorProperties",
+      "sourceType": "com.pig.easy.bpm.generator.property.EasyBpmGeneratorProperties"
+    }
+  ],
+  "hints": [
+  ],
+  "properties": [
+    {
+      "name": "easy.bpm.generator.init-data",
+      "type": "com.pig.easy.bpm.generator.property.InitDataProperties",
+      "description": "InitData."
+    },
+    {
+      "name": "easy.bpm.generator.version",
+      "type": "java.lang.String",
+      "defaultValue": "1.0.0",
+      "description": "version."
+    },
+    {
+      "name": "easy.bpm.generator.init-data.sql-dcript-encoding",
+      "type": "java.lang.String",
+      "defaultValue": "utf-8",
+      "description": "InitData sql script encoding."
+    },
+    {
+      "name": "easy.bpm.generator.init-data.continue-on-error",
+      "type": "java.lang.Boolean",
+      "defaultValue": "true",
+      "description": "InitData continue on error."
+    },
+    {
+      "name": "easy.bpm.generator.init-data.auto-init-data",
+      "type": "java.lang.Boolean",
+      "defaultValue": "false",
+      "description": "Enable autoInitData."
+    }
+  ]
+}

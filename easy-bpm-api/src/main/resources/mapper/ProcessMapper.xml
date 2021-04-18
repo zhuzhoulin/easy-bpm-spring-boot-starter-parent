@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pig.easy.bpm.api.mapper.ProcessMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pig.easy.bpm.api.entity.ProcessDO">
+        <id column="process_id" property="processId" />
+        <result column="process_key" property="processKey" />
+        <result column="process_name" property="processName" />
+        <result column="process_menu_id" property="processMenuId" />
+        <result column="process_abbr" property="processAbbr" />
+        <result column="process_type" property="processType" />
+        <result column="company_id" property="companyId" />
+        <result column="company_code" property="companyCode" />
+        <result column="sort" property="sort" />
+        <result column="tenant_id" property="tenantId" />
+        <result column="process_detail_id" property="processDetailId" />
+        <result column="process_status" property="processStatus" />
+        <result column="remarks" property="remarks" />
+        <result column="valid_state" property="validState" />
+        <result column="operator_id" property="operatorId" />
+        <result column="operator_name" property="operatorName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+      `process_id`,
+      `process_key`,
+      `process_name`,
+      `process_menu_id`,
+      `process_abbr`,
+      `process_type`,
+      `company_id`,
+      `company_code`,
+      `sort`,
+      `tenant_id`,
+      `process_detail_id`,
+      `process_status`,
+      `remarks`,
+      `valid_state`,
+      `operator_id`,
+      `operator_name`,
+      `create_time`,
+      `update_time`
+<!--
+        process_id, process_key, process_name, process_menu_id, process_abbr, process_type, company_id, company_code, sort, tenant_id, process_detail_id, process_status, remarks, valid_state, operator_id, operator_name, create_time, update_time
+-->
+    </sql>
+
+    <select id="getListByCondition" parameterType="com.pig.easy.bpm.api.dto.request.ProcessQueryDTO"
+            resultType="com.pig.easy.bpm.api.dto.response.ProcessInfoDTO">
+        select
+        t.process_id,
+        t.process_key,
+        t.process_name,
+        t.process_menu_id,
+        t.process_abbr,
+        t.company_id,
+        t.company_code,
+        t.tenant_id,
+        t.sort,
+        t.process_type,
+        t.process_status,
+        t.remarks,
+        t.valid_state,
+        t.operator_id,
+        t.operator_name,
+        t.create_time,
+        t.update_time,
+        d.definition_id,
+        d.process_detail_id,
+        d.auto_complete_first_node,
+        d.apply_title_rule,
+        d.apply_due_date
+        from bpm_process t, bpm_process_detail d
+        where
+        t.process_detail_id = d.process_detail_id
+        <if test="processId != null and processId > 0">
+            and t.process_id = #{processId}
+        </if>
+        <if test="processKey != null and processKey != ''">
+            and t.process_key like concat(#{processKey},'%')
+        </if>
+        <if test="processName != null and processName != ''">
+            and t.process_name like concat('%',#{processName},'%')
+        </if>
+        <if test="tenantId != null and tenantId != ''">
+            and t.tenant_id = #{tenantId}
+        </if>
+        <if test="sort != null and sort > 0">
+            and t.sort = #{sort}
+        </if>
+        <if test="processAbbr != null and processAbbr != ''">
+            and t.process_abbr = #{processAbbr}
+        </if>
+        <if test="companyId != null and companyId > 0">
+            and t.company_id = #{companyId}
+        </if>
+        <if test="processMenuId != null and processMenuId > 0">
+            and t.process_menu_id = #{processMenuId}
+        </if>
+        <if test="processType != null and processType > 0">
+            and t.process_type = #{processType}
+        </if>
+        <if test="companyCode != null and companyCode != ''">
+            and t.company_code = #{companyCode}
+        </if>
+        <if test="processStatus != null and processStatus > 0">
+            and t.process_status = #{processStatus}
+        </if>
+        <if test="validState != null and validState >= 0">
+            and t.valid_state = #{validState}
+        </if>
+        <if test="processDetailId != null and processDetailId > 0">
+            and t.process_detail_id = #{processDetailId}
+        </if>
+        <if test="operatorId != null and operatorId > 0">
+            and t.operator_id = #{operatorId}
+        </if>
+        <if test="operatorName != null and operatorName != ''">
+            and t.operator_name = #{operatorName}
+        </if>
+        order by t.sort,t.process_id desc
+    </select>
+
+    <update id="updateProcessByProcessKey"  parameterType="com.pig.easy.bpm.api.entity.ProcessDO">
+        update bpm_process
+        <set>
+            <if test="processKey != null and processKey != ''">
+                process_key = #{processKey},
+            </if>
+            <if test="processName != null and processName != ''">
+                process_name = #{processName},
+            </if>
+            <if test="tenantId != null and tenantId != ''">
+                tenant_id = #{tenantId},
+            </if>
+            <if test="sort != null and sort > 0">
+                sort = #{sort},
+            </if>
+            <if test="processMenuId != null and processMenuId > 0">
+                process_menu_id = #{processMenuId},
+            </if>
+            <if test="processType != null and processType > 0">
+                process_type = #{processType},
+            </if>
+            <if test="companyId != null and companyId > 0">
+                company_id = #{companyId},
+            </if>
+            <if test="companyCode != null and companyCode != ''">
+                company_code = #{companyCode},
+            </if>
+            <if test="processAbbr != null and processAbbr != ''">
+                process_abbr = #{processAbbr},
+            </if>
+            <if test="processStatus != null and processStatus > 0">
+                process_status = #{processStatus},
+            </if>
+            <if test="validState != null and validState >= 0">
+                valid_state = #{validState},
+            </if>
+            <if test="processDetailId != null and processDetailId > 0">
+                process_detail_id = #{processDetailId},
+            </if>
+            <if test="operatorId != null and operatorId > 0">
+                operator_id = #{operatorId},
+            </if>
+            <if test="operatorName != null and operatorName != null">
+                operator_name = #{operatorName},
+            </if>
+            update_time = now(),
+        </set>
+        where  process_key = #{processKey}
+    </update>
+</mapper>

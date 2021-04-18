@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pig.easy.bpm.generator.mapper.TableStrategyConfigMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pig.easy.bpm.generator.entity.TableStrategyConfigDO">
+        <id column="config_id" property="configId" />
+        <result column="db_id" property="dbId" />
+        <result column="table_name" property="tableName" />
+        <result column="author" property="author" />
+        <result column="context_path" property="contextPath" />
+        <result column="module_name" property="moduleName" />
+        <result column="parent_package" property="parentPackage" />
+        <result column="table_prefix" property="tablePrefix" />
+        <result column="field_prefix" property="fieldPrefix" />
+        <result column="project_path" property="projectPath" />
+        <result column="vue_path" property="vuePath" />
+        <result column="override" property="override" />
+        <result column="parent_menu_id" property="parentMenuId" />
+        <result column="controller_name" property="controllerName" />
+        <result column="service_impl_name" property="serviceImplName" />
+        <result column="service_name" property="serviceName" />
+        <result column="xml_name" property="xmlName" />
+        <result column="mapper_name" property="mapperName" />
+        <result column="entity_name" property="entityName" />
+        <result column="super_entity_class" property="superEntityClass" />
+        <result column="super_mapper_class" property="superMapperClass" />
+        <result column="super_service_class" property="superServiceClass" />
+        <result column="super_service_impl_class" property="superServiceImplClass" />
+        <result column="super_controller_class" property="superControllerClass" />
+        <result column="tenant_id" property="tenantId" />
+        <result column="remarks" property="remarks" />
+        <result column="valid_state" property="validState" />
+        <result column="operator_id" property="operatorId" />
+        <result column="operator_name" property="operatorName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        config_id, db_id, table_name, author, context_path, module_name, parent_package, table_prefix, field_prefix, project_path, vue_path, override, parent_menu_id, controller_name, service_impl_name, service_name, xml_name, mapper_name, entity_name, super_entity_class, super_mapper_class, super_service_class, super_service_impl_class, super_controller_class, tenant_id, remarks, valid_state, operator_id, operator_name, create_time, update_time
+    </sql>
+
+    <select id="getListByCondition" parameterType="com.pig.easy.bpm.generator.dto.request.TableStrategyConfigQueryDTO"
+            resultType="com.pig.easy.bpm.generator.dto.response.TableStrategyConfigDTO">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            code_table_strategy_config t
+        where
+            1 = 1
+	   <if test="configId != null and configId > 0">
+	         and t.config_id = #{configId}
+        </if>
+
+	   <if test="dbId != null and dbId > 0">
+	         and t.db_id = #{dbId}
+        </if>
+
+	   <if test="tableName != null and tableName != ''">
+	         and t.table_name = #{tableName}
+        </if>
+
+	   <if test="author != null and author != ''">
+	         and t.author like concat('%',#{author},'%')
+        </if>
+
+	   <if test="contextPath != null and contextPath != ''">
+	         and t.context_path like concat('%',#{contextPath},'%')
+        </if>
+
+	   <if test="moduleName != null and moduleName != ''">
+	         and t.module_name = #{moduleName}
+        </if>
+
+	   <if test="parentPackage != null and parentPackage != ''">
+	         and t.parent_package = #{parentPackage}
+        </if>
+
+	   <if test="tablePrefix != null and tablePrefix != ''">
+	         and t.table_prefix = #{tablePrefix}
+        </if>
+
+	   <if test="fieldPrefix != null and fieldPrefix != ''">
+	         and t.field_prefix = #{fieldPrefix}
+        </if>
+
+	   <if test="projectPath != null and projectPath != ''">
+	         and t.project_path = #{projectPath}
+        </if>
+
+	   <if test="vuePath != null and vuePath != ''">
+	         and t.vue_path = #{vuePath}
+        </if>
+
+        <if test="override != null and override > 0">
+	         and t.override = #{override}
+        </if>
+
+	   <if test="parentMenuId != null and parentMenuId > 0">
+	         and t.parent_menu_id = #{parentMenuId}
+        </if>
+
+	   <if test="controllerName != null and controllerName != ''">
+	         and t.controller_name = #{controllerName}
+        </if>
+
+	   <if test="serviceImplName != null and serviceImplName != ''">
+	         and t.service_impl_name = #{serviceImplName}
+        </if>
+
+	   <if test="serviceName != null and serviceName != ''">
+	         and t.service_name = #{serviceName}
+        </if>
+
+	   <if test="xmlName != null and xmlName != ''">
+	         and t.xml_name = #{xmlName}
+        </if>
+
+	   <if test="mapperName != null and mapperName != ''">
+	         and t.mapper_name = #{mapperName}
+        </if>
+
+	   <if test="entityName != null and entityName != ''">
+	         and t.entity_name = #{entityName}
+        </if>
+
+	   <if test="superEntityClass != null and superEntityClass != ''">
+	         and t.super_entity_class = #{superEntityClass}
+        </if>
+
+	   <if test="superMapperClass != null and superMapperClass != ''">
+	         and t.super_mapper_class = #{superMapperClass}
+        </if>
+
+	   <if test="superServiceClass != null and superServiceClass != ''">
+	         and t.super_service_class = #{superServiceClass}
+        </if>
+
+	   <if test="superServiceImplClass != null and superServiceImplClass != ''">
+	         and t.super_service_impl_class = #{superServiceImplClass}
+        </if>
+
+	   <if test="superControllerClass != null and superControllerClass != ''">
+	         and t.super_controller_class = #{superControllerClass}
+        </if>
+
+	   <if test="tenantId != null and tenantId != ''">
+	         and t.tenant_id = #{tenantId}
+        </if>
+
+	   <if test="remarks != null and remarks != ''">
+	         and t.remarks = #{remarks}
+        </if>
+
+		<if test="validState != null and validState >= 0">
+	         and t.valid_state = #{validState}
+        </if>
+
+        <if test="operatorId != null and operatorId > 0">
+	         and t.operator_id = #{operatorId}
+        </if>
+
+	   <if test="operatorName != null and operatorName != ''">
+	         and t.operator_name = #{operatorName}
+        </if>
+
+        <if test="createTime != null ">
+	         and t.create_time = #{createTime}
+        </if>
+
+        <if test="updateTime != null ">
+	         and t.update_time = #{updateTime}
+        </if>
+
+    </select>
+</mapper>

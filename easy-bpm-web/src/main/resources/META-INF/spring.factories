@@ -1,0 +1,6 @@
+# ApplicationContextInitializer
+org.springframework.context.ApplicationContextInitializer=\
+  com.pig.easy.bpm.web.utils.PropertyUtil
+# SpringApplicationRunListener
+org.springframework.boot.SpringApplicationRunListener=\
+  com.pig.easy.bpm.web.listener.BpmSpringApplicationRunListener
