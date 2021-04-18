@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pig.easy.bpm.api.mapper.ProcessRuleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pig.easy.bpm.api.entity.ProcessRuleDO">
+        <id column="rule_id" property="ruleId" />
+        <result column="rule_name" property="ruleName" />
+        <result column="rule_code" property="ruleCode" />
+        <result column="rule_type" property="ruleType" />
+        <result column="tenant_id" property="tenantId" />
+        <result column="process_id" property="processId" />
+        <result column="role_group_id" property="roleGroupId" />
+        <result column="role_id" property="roleId" />
+        <result column="user_id" property="userId" />
+        <result column="rule_expression" property="ruleExpression" />
+        <result column="rule_action" property="ruleAction" />
+        <result column="rule_users" property="ruleUsers" />
+        <result column="remarks" property="remarks" />
+        <result column="valid_state" property="validState" />
+        <result column="operator_id" property="operatorId" />
+        <result column="operator_name" property="operatorName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+      `rule_id`,
+      `rule_name`,
+      `rule_code`,
+      `rule_type`,
+      `tenant_id`,
+      `process_id`,
+      `role_group_id`,
+      `role_id`,
+      `user_id`,
+      `rule_expression`,
+      `rule_action`,
+      `rule_users`,
+      `remarks`,
+      `valid_state`,
+      `operator_id`,
+      `operator_name`,
+      `create_time`,
+      `update_time`
+<!--
+        rule_id, rule_name, rule_code, rule_type, tenant_id, process_id, role_group_id, role_id, user_id, rule_expression, rule_action, rule_users, remarks, valid_state, operator_id, operator_name, create_time, update_time
+-->
+    </sql>
+
+    <select id="getListByCondition" parameterType="com.pig.easy.bpm.api.dto.request.ProcessRuleQueryDTO"
+            resultType="com.pig.easy.bpm.api.dto.response.ProcessRuleDTO">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            bpm_process_rule t
+        where
+            1 = 1
+	   <if test="ruleId != null and ruleId != ''">
+	         and t.rule_id = #{ruleId}
+        </if>
+
+	   <if test="ruleName != null and ruleName != ''">
+	         and t.rule_name = #{ruleName}
+        </if>
+
+	   <if test="ruleCode != null and ruleCode != ''">
+	         and t.rule_code = #{ruleCode}
+        </if>
+
+        <if test="ruleType != null and ruleType > 0">
+	         and t.rule_type = #{ruleType}
+        </if>
+
+	   <if test="tenantId != null and tenantId != ''">
+	         and t.tenant_id = #{tenantId}
+        </if>
+
+        <if test="processId != null and processId > 0">
+	         and t.process_id = #{processId}
+        </if>
+
+        <if test="roleGroupId != null and roleGroupId > 0">
+	         and t.role_group_id = #{roleGroupId}
+        </if>
+
+        <if test="roleId != null and roleId > 0">
+	         and t.role_id = #{roleId}
+        </if>
+
+        <if test="userId != null and userId > 0">
+	         and t.user_id = #{userId}
+        </if>
+
+	   <if test="ruleExpression != null and ruleExpression != ''">
+	         and t.rule_expression = #{ruleExpression}
+        </if>
+
+	   <if test="ruleAction != null and ruleAction != ''">
+	         and t.rule_action = #{ruleAction}
+        </if>
+
+	   <if test="ruleUsers != null and ruleUsers != ''">
+	         and t.rule_users = #{ruleUsers}
+        </if>
+
+	   <if test="remarks != null and remarks != ''">
+	         and t.remarks = #{remarks}
+        </if>
+
+		<if test="validState != null and validState >= 0">
+	         and t.valid_state = #{validState}
+        </if>
+
+        <if test="operatorId != null and operatorId > 0">
+	         and t.operator_id = #{operatorId}
+        </if>
+
+	   <if test="operatorName != null and operatorName != ''">
+	         and t.operator_name = #{operatorName}
+        </if>
+
+        <if test="createTime != null ">
+	         and t.create_time = #{createTime}
+        </if>
+
+        <if test="updateTime != null ">
+	         and t.update_time = #{updateTime}
+        </if>
+
+    </select>
+</mapper>

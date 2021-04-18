@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pig.easy.bpm.auth.mapper.RoleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pig.easy.bpm.auth.entity.RoleDO">
+        <id column="role_id" property="roleId" />
+        <result column="role_code" property="roleCode" />
+        <result column="role_name" property="roleName" />
+        <result column="role_level" property="roleLevel" />
+        <result column="role_abbr" property="roleAbbr" />
+        <result column="role_alias_name" property="roleAliasName" />
+        <result column="tenant_id" property="tenantId" />
+        <result column="company_id" property="companyId" />
+        <result column="dept_id" property="deptId" />
+        <result column="remarks" property="remarks" />
+        <result column="valid_state" property="validState" />
+        <result column="operator_id" property="operatorId" />
+        <result column="operator_name" property="operatorName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+      `role_id`,
+      `role_code`,
+      `role_name`,
+      `role_level`,
+      `role_abbr`,
+      `role_alias_name`,
+      `tenant_id`,
+      `company_id`,
+      `dept_id`,
+      `remarks`,
+      `valid_state`,
+      `operator_id`,
+      `operator_name`,
+      `create_time`,
+      `update_time`
+<!--
+        role_id, role_code, role_name, role_level, role_abbr, role_alias_name, tenant_id, company_id, dept_id, remarks, valid_state, operator_id, operator_name, create_time, update_time
+-->
+    </sql>
+
+    <select id="getListByCondition" parameterType="com.pig.easy.bpm.auth.dto.request.RoleQueryDTO"
+            resultType="com.pig.easy.bpm.auth.dto.response.RoleDTO">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            bpm_role t
+        where
+            1 = 1
+	   <if test="roleId != null and roleId > 0">
+	         and t.role_id = #{roleId}
+        </if>
+
+	   <if test="roleCode != null and roleCode != ''">
+	         and t.role_code = #{roleCode}
+        </if>
+
+	   <if test="roleName != null and roleName != ''">
+	         and t.role_name like concat('%',#{roleName},'%')
+        </if>
+
+        <if test="roleLevel != null and roleLevel > 0">
+	         and t.role_level = #{roleLevel}
+        </if>
+
+	   <if test="roleAbbr != null and roleAbbr != ''">
+	         and t.role_abbr = #{roleAbbr}
+        </if>
+
+	   <if test="roleAliasName != null and roleAliasName != ''">
+	         and t.role_alias_name = #{roleAliasName}
+        </if>
+
+	   <if test="tenantId != null and tenantId != ''">
+	         and t.tenant_id = #{tenantId}
+        </if>
+
+	   <if test="companyId != null and companyId > 0">
+	         and t.company_id = #{companyId}
+        </if>
+
+	   <if test="deptId != null and deptId > 0">
+	         and t.dept_id = #{deptId}
+        </if>
+
+	   <if test="remarks != null and remarks != ''">
+	         and t.remarks = #{remarks}
+        </if>
+
+		<if test="validState != null and validState >= 0">
+	         and t.valid_state = #{validState}
+        </if>
+
+	   <if test="operatorId != null and operatorId > 0">
+	         and t.operator_id = #{operatorId}
+        </if>
+
+	   <if test="operatorName != null and operatorName != ''">
+	         and t.operator_name = #{operatorName}
+        </if>
+
+        <if test="createTime != null ">
+	         and t.create_time = #{createTime}
+        </if>
+
+        <if test="updateTime != null ">
+	         and t.update_time = #{updateTime}
+        </if>
+
+    </select>
+
+
+    <update id="updateByRoleCode" parameterType="com.pig.easy.bpm.auth.entity.RoleDO">
+        update bpm_role
+        <set>
+            <if test=" roleId != null and  roleId > 0">
+                role_id = #{roleId},
+            </if>
+            <if test=" roleCode != null and  roleCode != ''">
+                role_code = #{roleCode},
+            </if>
+            <if test=" roleName != null and  roleName != ''">
+                role_name = #{roleName},
+            </if>
+            <if test=" roleLevel != null and  roleLevel > 0">
+                role_level = #{roleLevel},
+            </if>
+            <if test=" roleAbbr != null and  roleAliasName != ''">
+                role_abbr = #{roleAbbr},
+            </if>
+            <if test=" roleAliasName != null and  roleAliasName != ''">
+                role_alias_name = #{roleAliasName},
+            </if>
+            <if test=" companyId != null and  companyId > 0">
+                company_id = #{companyId},
+            </if>
+            <if test=" deptId != null and  deptId > 0">
+                dept_id = #{deptId},
+            </if>
+            <if test="tenantId != null and tenantId != ''">
+                tenant_id = #{tenantId},
+            </if>
+            <if test="validState != null and validState >= 0">
+                valid_state = #{validState},
+            </if>
+            <if test="operatorId != null and operatorId > 0">
+                operator_id = #{operatorId},
+            </if>
+            <if test="operatorName != null and operatorName != null">
+                operator_name = #{operatorName},
+            </if>
+            update_time = now(),
+        </set>
+        where role_code = #{roleCode}
+    </update>
+
+    <select id="getRoleGroupRoleDetailByCondition"
+            parameterType="com.pig.easy.bpm.auth.dto.request.RoleGroupRoleDetailQueryDTO"
+            resultType="com.pig.easy.bpm.auth.dto.response.RoleGroupRoleDetailDTO">
+        SELECT
+        g.role_group_id,
+        g.role_group_code,
+        g.role_group_name,
+        g.role_group_level,
+        g.role_group_type,
+        g.`business_line` as roleGroupBusinessLine,
+        g.tenant_id,
+        r.role_id,
+        r.role_code,
+        r.role_name,
+        r.role_abbr,
+        r.role_level,
+        r.company_id,
+        r.dept_id,
+        dept.dept_code,
+        dept.dept_name,
+        dept.business_line as deptBusinessLine,
+        c.company_code,
+        c.company_name
+        FROM
+        bpm_role_group g,
+        bpm_role r,
+        bpm_role_group_to_role gr,
+        bpm_dept dept,
+        bpm_company c
+        WHERE
+        g.role_group_id = gr.role_group_id
+        AND r.role_id = gr.role_id
+        AND r.dept_id = dept.dept_id
+        AND c.company_id = r.company_id
+        AND g.valid_state = 1
+        AND r.valid_state = 1
+        AND gr.valid_state = 1
+        <if test="roleGroupId != null and roleGroupId > 0">
+            and g.role_group_id = #{roleGroupId}
+        </if>
+        <if test="roleGroupCode != null and roleGroupCode !=''">
+            and g.role_group_code = #{roleGroupCode}
+        </if>
+        <if test="businessLine != null and businessLine !=''">
+            and g.business_line = #{businessLine}
+        </if>
+        <if test="tenantId != null and tenantId !=''">
+            and g.tenant_id = #{tenantId}
+        </if>
+        <if test="roleGroupLevel != null and roleGroupLevel > 0">
+            and g.role_group_level = #{roleGroupLevel}
+        </if>
+        <if test="roleGroupType != null and roleGroupType > 0">
+            and g.role_group_type = #{roleGroupType}
+        </if>
+        <if test="roleId != null and roleId > 0">
+            and r.role_id = #{roleId}
+        </if>
+        <if test="roleCode != null and roleCode !=''">
+            and r.role_code = #{roleCode}
+        </if>
+        <if test="companyId != null and companyId > 0">
+            and r.company_id = #{companyId}
+        </if>
+        <if test="deptId != null and deptId > 0">
+            and r.dept_id = #{deptId}
+        </if>
+        GROUP BY gr.role_group_id,gr.role_id,gr.tenant_id
+        order by g.role_group_id asc
+        <if test="pageSize != null and pageIndex != null and pageSize > 0 and pageIndex > 0">
+            LIMIT #{pageIndex}, #{pageSize}
+        </if>
+    </select>
+
+    <select id="getCountByCondition"
+            parameterType="com.pig.easy.bpm.auth.dto.request.RoleGroupRoleDetailQueryDTO"
+            resultType="java.lang.Integer">
+
+
+        SELECT
+        count(1)
+        FROM
+        bpm_role_group g,
+        bpm_role r,
+        bpm_role_group_to_role gr,
+        bpm_dept dept,
+        bpm_company c
+        WHERE
+        g.role_group_id = gr.role_group_id
+        AND r.role_id = gr.role_id
+        AND r.company_id = c.company_id
+        AND c.company_id = r.company_id
+        AND g.valid_state = 1
+        AND r.valid_state = 1
+        AND gr.valid_state = 1
+        <if test="roleGroupId != null and roleGroupId > 0">
+            and g.role_group_id = #{roleGroupId}
+        </if>
+        <if test="roleGroupCode != null and roleGroupCode !=''">
+            and g.role_group_code = #{roleGroupCode}
+        </if>
+        <if test="businessLine != null and businessLine !=''">
+            and g.business_line = #{businessLine}
+        </if>
+        <if test="tenantId != null and tenantId !=''">
+            and g.tenant_id = #{tenantId}
+        </if>
+        <if test="roleGroupLevel != null and roleGroupLevel > 0">
+            and g.role_group_level = #{roleGroupLevel}
+        </if>
+        <if test="roleGroupType != null and roleGroupType > 0">
+            and g.role_group_type = #{roleGroupType}
+        </if>
+        <if test="roleId != null and roleId > 0">
+            and r.role_id = #{roleId}
+        </if>
+        <if test="roleCode != null and roleCode !=''">
+            and r.role_code = #{roleCode}
+        </if>
+        <if test="companyId != null and companyId > 0">
+            and r.company_id = #{companyId}
+        </if>
+        <if test="deptId != null and deptId > 0">
+            and r.dept_id = #{deptId}
+        </if>
+        GROUP BY gr.role_group_id,gr.role_id,gr.tenant_id
+
+    </select>
+</mapper>

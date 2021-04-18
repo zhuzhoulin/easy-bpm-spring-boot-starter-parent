@@ -1,0 +1,95 @@
+package com.pig.easy.bpm.web.vo.request;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+/**
+ * <p>
+    * 
+    * </p>
+ *
+ * @author pig
+ * @since 2021-04-09
+ */
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+public class ProcessDetailSaveOrUpdateVO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 流程详细编号
+     */
+    private Long  processDetailId;
+
+    /**
+     * 租户编号
+     */
+    private String  tenantId;
+
+    private Long  processId;
+
+    /**
+     * 流程XML格式数据
+     */
+    private String  processXml;
+
+    /**
+     * 默认版本号
+     */
+    private String  definitionId;
+
+    /**
+     * 申请标题规则
+     */
+    private String  applyTitleRule;
+
+    /**
+     * 流程到期时间
+     */
+    private LocalDateTime  applyDueDate;
+
+    /**
+     * 是否自动完成第一个节点任务 1 是 0 否
+     */
+    private Integer  autoCompleteFirstNode;
+
+    /**
+     * 1 未发布 2 已发布 
+     */
+    private Integer  publishStatus;
+
+    /**
+     * 1 默认版本 2 非默认版本
+     */
+    private Integer  mainVersion;
+
+    /**
+     * 备注
+     */
+    private String  remarks;
+
+    /**
+     * 状态 1 有效 0 失效
+     */
+    private Integer  validState;
+
+    private Long  operatorId;
+
+    /**
+     * 操作人姓名
+     */
+    private String  operatorName;
+
+    private LocalDateTime  createTime;
+
+    private LocalDateTime  updateTime;
+
+
+
+
+}

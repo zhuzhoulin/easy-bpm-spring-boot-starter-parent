@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pig.easy.bpm.auth.mapper.DictMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pig.easy.bpm.auth.entity.DictDO">
+        <id column="dict_id" property="dictId" />
+        <result column="dict_code" property="dictCode" />
+        <result column="dict_name" property="dictName" />
+        <result column="tenant_id" property="tenantId" />
+        <result column="remark" property="remark" />
+        <result column="valid_state" property="validState" />
+        <result column="operator_id" property="operatorId" />
+        <result column="operator_name" property="operatorName" />
+        <result column="update_time" property="updateTime" />
+        <result column="create_time" property="createTime" />
+        <result column="dict_tree" property="dictTree" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+      `dict_id`,
+      `dict_code`,
+      `dict_name`,
+        `dict_tree`,
+      `tenant_id`,
+      `remark`,
+      `valid_state`,
+      `operator_id`,
+      `operator_name`,
+      `update_time`,
+      `create_time`
+<!--
+        dict_id, dict_code, dict_name, tenant_id, remark, valid_state, operator_id, operator_name, update_time, create_time
+-->
+    </sql>
+
+    <select id="getListByCondition" parameterType="com.pig.easy.bpm.auth.dto.request.DictQueryDTO"
+            resultType="com.pig.easy.bpm.auth.dto.response.DictDTO">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            bpm_dict t
+        where
+            1 = 1
+	   <if test="dictId != null and dictId > 0">
+	         and t.dict_id = #{dictId}
+        </if>
+
+	   <if test="dictCode != null and dictCode != ''">
+	         and t.dict_code like concat('%',#{dictCode},'%')
+        </if>
+
+	   <if test="dictName != null and dictName != ''">
+	         and t.dict_name like concat('%',#{dictName},'%')
+        </if>
+        <if test="dictTree != null and dictTree >= 0">
+            and t.dict_tree = #{dictTree}
+        </if>
+
+	   <if test="tenantId != null and tenantId != ''">
+	         and t.tenant_id = #{tenantId}
+        </if>
+
+	   <if test="remark != null and remark != ''">
+	         and t.remark = #{remark}
+        </if>
+
+		<if test="validState != null and validState >= 0">
+	         and t.valid_state = #{validState}
+        </if>
+
+	   <if test="operatorId != null and operatorId > 0">
+	         and t.operator_id = #{operatorId}
+        </if>
+
+	   <if test="operatorName != null and operatorName != ''">
+	         and t.operator_name = #{operatorName}
+        </if>
+
+        <if test="updateTime != null ">
+	         and t.update_time = #{updateTime}
+        </if>
+
+        <if test="createTime != null ">
+	         and t.create_time = #{createTime}
+        </if>
+
+    </select>
+</mapper>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pig.easy.bpm.api.mapper.ApplyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pig.easy.bpm.api.entity.ApplyDO">
+        <id column="apply_id" property="applyId"/>
+        <result column="apply_sn" property="applySn"/>
+        <result column="proc_inst_id" property="procInstId"/>
+        <result column="apply_title" property="applyTitle"/>
+        <result column="apply_user_id" property="applyUserId"/>
+        <result column="apply_real_name" property="applyRealName"/>
+        <result column="apply_dept_id" property="applyDeptId"/>
+        <result column="apply_dept_code" property="applyDeptCode"/>
+        <result column="apply_dept_name" property="applyDeptName"/>
+        <result column="apply_company_id" property="applyCompanyId"/>
+        <result column="apply_company_code" property="applyCompanyCode"/>
+        <result column="apply_company_name" property="applyCompanyName"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="process_id" property="processId"/>
+        <result column="process_key" property="processKey"/>
+        <result column="process_name" property="processName"/>
+        <result column="definition_id" property="definitionId"/>
+        <result column="form_key" property="formKey"/>
+        <result column="system" property="system"/>
+        <result column="platform" property="platform"/>
+        <result column="parent_apply_id" property="parentApplyId"/>
+        <result column="apply_status" property="applyStatus"/>
+        <result column="remarks" property="remarks"/>
+        <result column="valid_state" property="validState"/>
+        <result column="operator_id" property="operatorId"/>
+        <result column="operator_name" property="operatorName"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="complete_time" property="completeTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        `apply_id`, `apply_sn`, `proc_inst_id`, `apply_title`, `apply_user_id`, `apply_real_name`, `apply_dept_id`, `apply_dept_code`, `apply_dept_name`, `apply_company_id`, `apply_company_code`, `apply_company_name`, `tenant_id`, `process_id`, `process_key`, `process_name`, `definition_id`,`form_key`, `system`, `platform`, `parent_apply_id`, `apply_status`, `remarks`, `valid_state`, `operator_id`, `operator_name`, `create_time`, `update_time`,`complete_time`
+    </sql>
+
+    <select id="getApplyLineChart" parameterType="com.pig.easy.bpm.api.dto.request.LineChartQueryDTO"
+            resultType="com.pig.easy.bpm.api.dto.response.LineCharDTO">
+        SELECT
+        DATE_FORMAT(a.create_time, '%Y-%m') applyMonth,
+        a.process_id processId,
+        a.process_name processName,
+        count(1) num
+        FROM
+        bpm_apply a
+        WHERE
+        a.valid_state = 1
+        <if test="tenantId != null and tenantId != ''">
+            and a.tenant_id = #{tenantId}
+        </if>
+        <if test="applyStatus != null and applyStatus > 0">
+            and a.apply_status = #{applyStatus}
+        </if>
+        <if test="userId != null and userId > 0">
+            and a.apply_user_id = #{userId}
+        </if>
+        AND a.create_time > DATE_SUB(CURDATE(), INTERVAL 6 MONTH)
+        GROUP BY
+        a.process_id,
+        applyMonth
+    </select>
+
+    <select id="getListByCondition" parameterType="com.pig.easy.bpm.api.dto.request.ApplyQueryDTO"
+            resultType="com.pig.easy.bpm.api.dto.response.ApplyDTO">
+        select
+        <include refid="Base_Column_List"/>
+        FROM
+        bpm_apply t
+        where t.valid_state = 1
+        <if test="applyId != null and applyId > 0">
+            and t.apply_id = #{applyId}
+        </if>
+        <if test="applySn != null and applySn !=''">
+            and t.apply_sn like concat('%',#{applySn},'%')
+        </if>
+        <if test="procInstId != null and procInstId !=''">
+            and t.proc_inst_id = #{procInstId}
+        </if>
+        <if test="applyTitle != null and applyTitle !=''">
+            and t.apply_title = #{applyTitle}
+        </if>
+        <if test="applyUserId != null and applyUserId > 0">
+            and t.apply_user_id = #{applyUserId}
+        </if>
+        <if test="applyRealName != null and applyRealName !=''">
+            and t.apply_real_name = #{applyRealName}
+        </if>
+        <if test="applyDeptId != null and applyDeptId > 0">
+            and t.apply_dept_id = #{applyDeptId}
+        </if>
+        <if test="applyDeptCode != null and applyDeptCode !=''">
+            and t.apply_dept_code = #{applyDeptCode}
+        </if>
+        <if test="applyDeptName != null and applyDeptName !=''">
+            and t.apply_dept_name = #{applyDeptName}
+        </if>
+        <if test="applyCompanyId != null and applyCompanyId > 0">
+            and t.apply_company_id = #{applyCompanyId}
+        </if>
+        <if test="applyCompanyCode != null and applyCompanyCode !=''">
+            and t.apply_company_code = #{applyCompanyCode}
+        </if>
+        <if test="applyCompanyName != null and applyCompanyName !=''">
+            and t.apply_company_name = #{applyCompanyName}
+        </if>
+        <if test="processId != null and processId > 0">
+            and t.process_id = #{processId}
+        </if>
+        <if test="processKey != null and processKey !=''">
+            and t.process_key = #{processKey}
+        </if>
+        <if test="processName != null and processName !=''">
+            and t.process_name = #{processName}
+        </if>
+        <if test="definitionId != null and definitionId !=''">
+            and t.definition_id = #{definitionId}
+        </if>
+        <if test="formKey != null and formKey !=''">
+            and t.form_key = #{formKey}
+        </if>
+        <if test="system != null and system !=''">
+            and t.system = #{system}
+        </if>
+        <if test="platform != null and platform !=''">
+            and t.platform = #{platform}
+        </if>
+        <if test="parentApplyId != null and parentApplyId > 0">
+            and t.parent_apply_id = #{parentApplyId}
+        </if>
+        <if test="applyStatus != null and applyStatus > 0">
+            and t.apply_status = #{applyStatus}
+        </if>
+        <if test="remarks != null and remarks !=''">
+            and t.remarks = #{remarks}
+        </if>
+        <if test="tenantId != null and tenantId != ''">
+            and t.tenant_id = #{tenantId}
+        </if>
+        <if test="operatorId != null and operatorId > 0">
+            and t.operator_id = #{operatorId}
+        </if>
+        <if test="operatorName != null and operatorName != ''">
+            and t.operator_name = #{operatorName}
+        </if>
+        order by t.apply_id desc
+    </select>
+</mapper>

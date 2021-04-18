@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pig.easy.bpm.auth.mapper.MenuMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pig.easy.bpm.auth.entity.MenuDO">
+        <id column="menu_id" property="menuId" />
+        <result column="menu_code" property="menuCode" />
+        <result column="menu_name" property="menuName" />
+        <result column="menu_icon" property="menuIcon" />
+        <result column="menu_url" property="menuUrl" />
+        <result column="menu_type" property="menuType" />
+        <result column="meta" property="meta" />
+        <result column="always_show" property="alwaysShow" />
+        <result column="parent_id" property="parentId" />
+        <result column="tenant_id" property="tenantId" />
+        <result column="component" property="component" />
+        <result column="hidden" property="hidden" />
+        <result column="sort" property="sort" />
+        <result column="redirect" property="redirect" />
+        <result column="remarks" property="remarks" />
+        <result column="valid_state" property="validState" />
+        <result column="operator_id" property="operatorId" />
+        <result column="operator_name" property="operatorName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+      `menu_id`,
+      `menu_code`,
+      `menu_name`,
+      `menu_icon`,
+      `menu_url`,
+      `menu_type`,
+      `meta`,
+      `always_show`,
+      `parent_id`,
+      `tenant_id`,
+      `component`,
+      `hidden`,
+      `sort`,
+      `redirect`,
+      `remarks`,
+      `valid_state`,
+      `operator_id`,
+      `operator_name`,
+      `create_time`,
+      `update_time`
+<!--
+        menu_id, menu_code, menu_name, menu_icon, menu_url, menu_type, meta, always_show, parent_id, tenant_id, component, hidden, sort, redirect, remarks, valid_state, operator_id, operator_name, create_time, update_time
+-->
+    </sql>
+
+    <select id="getListByCondition" parameterType="com.pig.easy.bpm.auth.dto.request.MenuQueryDTO"
+            resultType="com.pig.easy.bpm.auth.dto.response.MenuDTO">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            bpm_menu t
+        where
+            1 = 1
+	   <if test="menuId != null and menuId > 0">
+	         and t.menu_id = #{menuId}
+        </if>
+
+	   <if test="menuCode != null and menuCode != ''">
+	         and t.menu_code like concat('%',#{menuCode},'%')
+        </if>
+
+	   <if test="menuName != null and menuName != ''">
+	         and t.menu_name like concat('%',#{menuName},'%')
+        </if>
+
+	   <if test="menuIcon != null and menuIcon != ''">
+	         and t.menu_icon = #{menuIcon}
+        </if>
+
+	   <if test="menuUrl != null and menuUrl != ''">
+	         and t.menu_url = #{menuUrl}
+        </if>
+
+	   <if test="menuType != null and menuType != ''">
+	         and t.menu_type = #{menuType}
+        </if>
+
+	   <if test="meta != null and meta != ''">
+	         and t.meta = #{meta}
+        </if>
+
+        <if test="alwaysShow != null and alwaysShow > 0">
+	         and t.always_show = #{alwaysShow}
+        </if>
+
+	   <if test="parentId != null and parentId > 0">
+	         and t.parent_id = #{parentId}
+        </if>
+
+	   <if test="tenantId != null and tenantId != ''">
+	         and t.tenant_id = #{tenantId}
+        </if>
+
+	   <if test="component != null and component != ''">
+	         and t.component = #{component}
+        </if>
+
+        <if test="hidden != null and hidden > 0">
+	         and t.hidden = #{hidden}
+        </if>
+
+        <if test="sort != null and sort > 0">
+	         and t.sort = #{sort}
+        </if>
+
+	   <if test="redirect != null and redirect != ''">
+	         and t.redirect = #{redirect}
+        </if>
+
+	   <if test="remarks != null and remarks != ''">
+	         and t.remarks = #{remarks}
+        </if>
+
+		<if test="validState != null and validState >= 0">
+	         and t.valid_state = #{validState}
+        </if>
+
+	   <if test="operatorId != null and operatorId > 0">
+	         and t.operator_id = #{operatorId}
+        </if>
+
+	   <if test="operatorName != null and operatorName != ''">
+	         and t.operator_name = #{operatorName}
+        </if>
+
+        <if test="createTime != null ">
+	         and t.create_time = #{createTime}
+        </if>
+
+        <if test="updateTime != null ">
+	         and t.update_time = #{updateTime}
+        </if>
+
+    </select>
+</mapper>

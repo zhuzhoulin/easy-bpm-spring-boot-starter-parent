@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pig.easy.bpm.api.mapper.FormDataMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pig.easy.bpm.api.entity.FormDataDO">
+        <id column="data_id" property="dataId" />
+        <result column="data_key" property="dataKey" />
+        <result column="data_name" property="dataName" />
+        <result column="string_value" property="stringValue" />
+        <result column="boolean_value" property="booleanValue" />
+        <result column="number_value" property="numberValue" />
+        <result column="number_format" property="numberFormat" />
+        <result column="date_value" property="dateValue" />
+        <result column="date_pattern" property="datePattern" />
+        <result column="select_value" property="selectValue" />
+        <result column="select_item" property="selectItem" />
+        <result column="text_value" property="textValue" />
+        <result column="data_type" property="dataType" />
+        <result column="form_id" property="formId" />
+        <result column="form_key" property="formKey" />
+        <result column="tenant_id" property="tenantId" />
+        <result column="process_id" property="processId" />
+        <result column="apply_id" property="applyId" />
+        <result column="proc_inst_id" property="procInstId" />
+        <result column="task_id" property="taskId" />
+        <result column="valid_state" property="validState" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="operator_id" property="operatorId" />
+        <result column="operator_name" property="operatorName" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+      `data_id`,
+      `data_key`,
+      `data_name`,
+      `string_value`,
+      `boolean_value`,
+      `number_value`,
+      `number_format`,
+      `date_value`,
+      `date_pattern`,
+      `select_value`,
+      `select_item`,
+      `text_value`,
+      `data_type`,
+      `form_id`,
+      `form_key`,
+      `tenant_id`,
+      `process_id`,
+      `apply_id`,
+      `proc_inst_id`,
+      `task_id`,
+      `valid_state`,
+      `create_time`,
+      `update_time`,
+      `operator_id`,
+      `operator_name`
+<!--
+        data_id, data_key, data_name, string_value, boolean_value, number_value, number_format, date_value, date_pattern, select_value, select_item, text_value, data_type, form_id, form_key, tenant_id, process_id, apply_id, proc_inst_id, task_id, valid_state, create_time, update_time, operator_id, operator_name
+-->
+    </sql>
+
+    <select id="getListByCondition" parameterType="com.pig.easy.bpm.api.dto.request.FormDataQueryDTO"
+            resultType="com.pig.easy.bpm.api.dto.response.FormDataDTO">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            bpm_form_data t
+        where
+            1 = 1
+	   <if test="dataId != null and dataId > 0">
+	         and t.data_id = #{dataId}
+        </if>
+
+	   <if test="dataKey != null and dataKey != ''">
+	         and t.data_key = #{dataKey}
+        </if>
+
+	   <if test="dataName != null and dataName != ''">
+	         and t.data_name = #{dataName}
+        </if>
+
+	   <if test="stringValue != null and stringValue != ''">
+	         and t.string_value = #{stringValue}
+        </if>
+
+        <if test="booleanValue != null ">
+	         and t.boolean_value = #{booleanValue}
+        </if>
+
+        <if test="numberValue != null ">
+	         and t.number_value = #{numberValue}
+        </if>
+
+	   <if test="numberFormat != null and numberFormat != ''">
+	         and t.number_format = #{numberFormat}
+        </if>
+
+        <if test="dateValue != null ">
+	         and t.date_value = #{dateValue}
+        </if>
+
+	   <if test="datePattern != null and datePattern != ''">
+	         and t.date_pattern = #{datePattern}
+        </if>
+
+	   <if test="selectValue != null and selectValue != ''">
+	         and t.select_value = #{selectValue}
+        </if>
+
+	   <if test="selectItem != null and selectItem != ''">
+	         and t.select_item = #{selectItem}
+        </if>
+
+	   <if test="textValue != null and textValue != ''">
+	         and t.text_value = #{textValue}
+        </if>
+
+	   <if test="dataType != null and dataType != ''">
+	         and t.data_type = #{dataType}
+        </if>
+
+	   <if test="formId != null and formId > 0">
+	         and t.form_id = #{formId}
+        </if>
+
+	   <if test="formKey != null and formKey != ''">
+	         and t.form_key = #{formKey}
+        </if>
+
+	   <if test="tenantId != null and tenantId != ''">
+	         and t.tenant_id = #{tenantId}
+        </if>
+
+	   <if test="processId != null and processId > 0">
+	         and t.process_id = #{processId}
+        </if>
+
+	   <if test="applyId != null and applyId > 0">
+	         and t.apply_id = #{applyId}
+        </if>
+
+	   <if test="procInstId != null and procInstId != ''">
+	         and t.proc_inst_id = #{procInstId}
+        </if>
+
+	   <if test="taskId != null and taskId > 0">
+	         and t.task_id = #{taskId}
+        </if>
+
+		<if test="validState != null and validState >= 0">
+	         and t.valid_state = #{validState}
+        </if>
+
+        <if test="createTime != null ">
+	         and t.create_time = #{createTime}
+        </if>
+
+        <if test="updateTime != null ">
+	         and t.update_time = #{updateTime}
+        </if>
+
+	   <if test="operatorId != null and operatorId > 0">
+	         and t.operator_id = #{operatorId}
+        </if>
+
+	   <if test="operatorName != null and operatorName != ''">
+	         and t.operator_name = #{operatorName}
+        </if>
+
+    </select>
+
+    <insert id="batchSave" parameterType="java.util.List">
+        INSERT INTO
+        bpm_form_data
+        (
+        data_id,
+        data_key,
+        data_name,
+        string_value,
+        boolean_value,
+        number_value,
+        number_format,
+        date_value,
+        date_pattern,
+        select_value,
+        select_item,
+        text_value,
+        data_type,
+        form_id,
+        form_key,
+        tenant_id,
+        process_id,
+        apply_id,
+        proc_inst_id,
+        task_id,
+        valid_state,
+        create_time,
+        update_time,
+        operator_id,
+        operator_name)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.dataId},
+            #{item.dataKey},
+            #{item.dataName},
+            #{item.stringValue},
+            #{item.booleanValue},
+            #{item.numberValue},
+            #{item.numberFormat},
+            #{item.dateValue},
+            #{item.datePattern},
+            #{item.selectValue},
+            #{item.selectItem},
+            #{item.textValue},
+            #{item.dataType},
+            #{item.formId},
+            #{item.formKey},
+            #{item.tenantId},
+            #{item.processId},
+            #{item.applyId},
+            #{item.procInstId},
+            #{item.taskId},
+            1,
+            now(),
+            now(),
+            #{item.operatorId},
+            #{item.operatorName}
+            )
+        </foreach>
+    </insert>
+
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update bpm_form_data
+            <trim prefix="set" suffixOverrides=",">
+                <if test="item.dataKey != null and item.dataKey != ''">
+                    data_key = #{item.dataKey},
+                </if>
+                <if test="item.dataName != null and item.dataName != ''">
+                    data_name = #{item.dataName},
+                </if>
+                <if test="item.stringValue != null and item.stringValue != ''">
+                    string_value = #{item.stringValue},
+                </if>
+                <if test="item.booleanValue != null and item.booleanValue >= 0">
+                    boolean_value = #{item.booleanValue},
+                </if>
+                <if test="item.numberValue != null">
+                    number_value = #{item.numberValue},
+                </if>
+                <if test="item.numberFormat != null and item.numberFormat != ''">
+                    number_format = #{item.numberFormat},
+                </if>
+                <if test="item.dateValue != null ">
+                    date_value = #{item.dateValue},
+                </if>
+                <if test="item.datePattern != null and item.datePattern != ''">
+                    date_pattern = #{item.datePattern},
+                </if>
+                <if test="item.selectValue != null and item.selectValue != ''">
+                    select_value = #{item.selectValue},
+                </if>
+                <if test="item.selectItem != null  and item.selectItem != '' ">
+                    select_item = #{item.selectItem},
+                </if>
+                <if test="item.textValue != null   and item.textValue != '' ">
+                    text_value = #{item.textValue},
+                </if>
+                <if test="item.dataType != null  and item.dataType != '' ">
+                    data_type = #{item.dataType},
+                </if>
+                <if test="item.formId != null  and item.formId > 0 ">
+                    form_id = #{item.formId},
+                </if>
+                <if test="item.formKey != null  and item.formKey != '' ">
+                    form_key = #{item.formKey},
+                </if>
+                <if test="item.tenantId != null  and item.tenantId != '' ">
+                    tenant_id = #{item.tenantId},
+                </if>
+                <if test="item.processId != null  and item.processId >0 ">
+                    process_id = #{item.processId},
+                </if>
+                <if test="item.applyId != null  and item.applyId >0 ">
+                    apply_id = #{item.applyId},
+                </if>
+                <if test="item.procInstId != null  and item.procInstId != '' ">
+                    proc_inst_id = #{item.procInstId},
+                </if>
+                <if test="item.taskId != null  and item.taskId  > 0 ">
+                    task_id = #{item.taskId},
+                </if>
+                <if test="item.validState != null  and item.validState  >= 0 ">
+                    valid_state = #{item.validState},
+                </if>
+                <if test="item.operatorId != null  and item.operatorId  > 0 ">
+                    operator_id = #{item.operatorId},
+                </if>
+                <if test="item.operatorName != null  and item.operatorName  !='' ">
+                    operator_name = #{item.operatorName},
+                </if>
+                update_time = now(),
+            </trim>
+            <where>
+                data_id = #{item.dataId}
+            </where>
+        </foreach>
+    </update>
+</mapper>

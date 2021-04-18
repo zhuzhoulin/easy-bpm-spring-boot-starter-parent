@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pig.easy.bpm.auth.mapper.OperatorLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pig.easy.bpm.auth.entity.OperatorLogDO">
+        <id column="log_id" property="logId" />
+        <result column="user_id" property="userId" />
+        <result column="nickname" property="nickname" />
+        <result column="trace_id" property="traceId" />
+        <result column="business_type" property="businessType" />
+        <result column="module_name" property="moduleName" />
+        <result column="class_name" property="className" />
+        <result column="method_name" property="methodName" />
+        <result column="request_method" property="requestMethod" />
+        <result column="ip_address" property="ipAddress" />
+        <result column="detail_address" property="detailAddress" />
+        <result column="browser" property="browser" />
+        <result column="os" property="os" />
+        <result column="operator_type" property="operatorType" />
+        <result column="param" property="param" />
+        <result column="code" property="code" />
+        <result column="message" property="message" />
+        <result column="data" property="data" />
+        <result column="remarks" property="remarks" />
+        <result column="valid_state" property="validState" />
+        <result column="operator_id" property="operatorId" />
+        <result column="operator_name" property="operatorName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+      `log_id`,
+      `user_id`,
+      `nickname`,
+      `trace_id`,
+      `business_type`,
+      `module_name`,
+      `class_name`,
+      `method_name`,
+      `request_method`,
+      `ip_address`,
+      `detail_address`,
+      `browser`,
+      `os`,
+      `operator_type`,
+      `param`,
+      `code`,
+      `message`,
+      `data`,
+      `remarks`,
+      `valid_state`,
+      `operator_id`,
+      `operator_name`,
+      `create_time`,
+      `update_time`
+<!--
+        log_id, user_id, nickname, trace_id, business_type, module_name, class_name, method_name, request_method, ip_address, detail_address, browser, os, operator_type, param, code, message, data, remarks, valid_state, operator_id, operator_name, create_time, update_time
+-->
+    </sql>
+
+    <select id="getListByCondition" parameterType="com.pig.easy.bpm.auth.dto.request.OperatorLogQueryDTO"
+            resultType="com.pig.easy.bpm.auth.dto.response.OperatorLogDTO">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            bpm_operator_log t
+        where
+            1 = 1
+	   <if test="logId != null and logId > 0">
+	         and t.log_id = #{logId}
+        </if>
+
+	   <if test="userId != null and userId > 0">
+	         and t.user_id = #{userId}
+        </if>
+
+	   <if test="nickname != null and nickname != ''">
+	         and t.nickname = #{nickname}
+        </if>
+
+	   <if test="traceId != null and traceId != ''">
+	         and t.trace_id like concat('%',#{traceId},'%')
+        </if>
+
+	   <if test="businessType != null and businessType != ''">
+	         and t.business_type = #{businessType}
+        </if>
+
+	   <if test="moduleName != null and moduleName != ''">
+	         and t.module_name = #{moduleName}
+        </if>
+
+	   <if test="className != null and className != ''">
+	         and t.class_name = #{className}
+        </if>
+
+	   <if test="methodName != null and methodName != ''">
+	         and t.method_name = #{methodName}
+        </if>
+
+	   <if test="requestMethod != null and requestMethod != ''">
+	         and t.request_method = #{requestMethod}
+        </if>
+
+	   <if test="ipAddress != null and ipAddress != ''">
+	         and t.ip_address = #{ipAddress}
+        </if>
+
+	   <if test="detailAddress != null and detailAddress != ''">
+	         and t.detail_address = #{detailAddress}
+        </if>
+
+	   <if test="browser != null and browser != ''">
+	         and t.browser = #{browser}
+        </if>
+
+	   <if test="os != null and os != ''">
+	         and t.os = #{os}
+        </if>
+
+        <if test="operatorType != null and operatorType > 0">
+	         and t.operator_type = #{operatorType}
+        </if>
+
+	   <if test="param != null and param != ''">
+	         and t.param = #{param}
+        </if>
+
+        <if test="code != null and code > 0">
+	         and t.code = #{code}
+        </if>
+
+	   <if test="message != null and message != ''">
+	         and t.message = #{message}
+        </if>
+
+	   <if test="data != null and data != ''">
+	         and t.data = #{data}
+        </if>
+
+	   <if test="remarks != null and remarks != ''">
+	         and t.remarks = #{remarks}
+        </if>
+
+		<if test="validState != null and validState >= 0">
+	         and t.valid_state = #{validState}
+        </if>
+
+	   <if test="operatorId != null and operatorId > 0">
+	         and t.operator_id = #{operatorId}
+        </if>
+
+	   <if test="operatorName != null and operatorName != ''">
+	         and t.operator_name = #{operatorName}
+        </if>
+
+        <if test="createTime != null ">
+	         and t.create_time = #{createTime}
+        </if>
+
+        <if test="updateTime != null ">
+	         and t.update_time = #{updateTime}
+        </if>
+
+    </select>
+</mapper>

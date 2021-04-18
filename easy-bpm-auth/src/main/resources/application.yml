@@ -1,0 +1,23 @@
+
+spring:
+  application:
+    name: easy-bpm-auth
+  profiles:
+    active: local
+  datasource:
+    url: jdbc:mysql://120.77.218.141:3306/easy_bpm_generator?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+  mapper-locations: classpath*:/mapper/*.xml
+
+easy:
+  bpm:
+    aspect:
+     enable: true
+     pointcut: execution(public * com.pig.easy.bpm.auth.*service..*.*(..))

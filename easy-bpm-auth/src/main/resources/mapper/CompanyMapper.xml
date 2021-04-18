@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pig.easy.bpm.auth.mapper.CompanyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pig.easy.bpm.auth.entity.CompanyDO">
+        <id column="company_id" property="companyId" />
+        <result column="company_code" property="companyCode" />
+        <result column="company_parent_id" property="companyParentId" />
+        <result column="company_parent_code" property="companyParentCode" />
+        <result column="company_name" property="companyName" />
+        <result column="company_abbr" property="companyAbbr" />
+        <result column="company_level" property="companyLevel" />
+        <result column="company_order" property="companyOrder" />
+        <result column="company_icon" property="companyIcon" />
+        <result column="company_url" property="companyUrl" />
+        <result column="tenant_id" property="tenantId" />
+        <result column="company_status" property="companyStatus" />
+        <result column="valid_state" property="validState" />
+        <result column="operator_id" property="operatorId" />
+        <result column="operator_name" property="operatorName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+      `company_id`,
+      `company_code`,
+      `company_parent_id`,
+      `company_parent_code`,
+      `company_name`,
+      `company_abbr`,
+      `company_level`,
+      `company_order`,
+      `company_icon`,
+      `company_url`,
+      `tenant_id`,
+      `company_status`,
+      `valid_state`,
+      `operator_id`,
+      `operator_name`,
+      `create_time`,
+      `update_time`
+<!--
+        company_id, company_code, company_parent_id, company_parent_code, company_name, company_abbr, company_level, company_order, company_icon, company_url, tenant_id, company_status, valid_state, operator_id, operator_name, create_time, update_time
+-->
+    </sql>
+
+    <select id="getListByCondition" parameterType="com.pig.easy.bpm.auth.dto.request.CompanyQueryDTO"
+            resultType="com.pig.easy.bpm.auth.dto.response.CompanyDTO">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            bpm_company t
+        where
+            1 = 1
+	   <if test="companyId != null and companyId > 0">
+	         and t.company_id = #{companyId}
+        </if>
+
+	   <if test="companyCode != null and companyCode != ''">
+	         and t.company_code = #{companyCode}
+        </if>
+
+	   <if test="companyParentId != null and companyParentId > 0">
+	         and t.company_parent_id = #{companyParentId}
+        </if>
+
+	   <if test="companyParentCode != null and companyParentCode != ''">
+	         and t.company_parent_code = #{companyParentCode}
+        </if>
+
+	   <if test="companyName != null and companyName != ''">
+	         and t.company_name like concat('%',#{companyName},'%')
+        </if>
+
+	   <if test="companyAbbr != null and companyAbbr != ''">
+	         and t.company_abbr = #{companyAbbr}
+        </if>
+
+        <if test="companyLevel != null and companyLevel > 0">
+	         and t.company_level = #{companyLevel}
+        </if>
+
+        <if test="companyOrder != null and companyOrder > 0">
+	         and t.company_order = #{companyOrder}
+        </if>
+
+	   <if test="companyIcon != null and companyIcon != ''">
+	         and t.company_icon = #{companyIcon}
+        </if>
+
+	   <if test="companyUrl != null and companyUrl != ''">
+	         and t.company_url = #{companyUrl}
+        </if>
+
+	   <if test="tenantId != null and tenantId != ''">
+	         and t.tenant_id = #{tenantId}
+        </if>
+
+        <if test="companyStatus != null and companyStatus > 0">
+	         and t.company_status = #{companyStatus}
+        </if>
+
+		<if test="validState != null and validState >= 0">
+	         and t.valid_state = #{validState}
+        </if>
+
+	   <if test="operatorId != null and operatorId > 0">
+	         and t.operator_id = #{operatorId}
+        </if>
+
+	   <if test="operatorName != null and operatorName != ''">
+	         and t.operator_name = #{operatorName}
+        </if>
+
+        <if test="createTime != null ">
+	         and t.create_time = #{createTime}
+        </if>
+
+        <if test="updateTime != null ">
+	         and t.update_time = #{updateTime}
+        </if>
+
+    </select>
+</mapper>

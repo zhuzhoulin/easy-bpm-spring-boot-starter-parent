@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pig.easy.bpm.auth.mapper.FileMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pig.easy.bpm.auth.entity.FileDO">
+        <id column="file_id" property="fileId" />
+        <result column="file_instance_code" property="fileInstanceCode" />
+        <result column="file_name" property="fileName" />
+        <result column="file_md5_name" property="fileMd5Name" />
+        <result column="file_path" property="filePath" />
+        <result column="file_size" property="fileSize" />
+        <result column="file_extend" property="fileExtend" />
+        <result column="file_status" property="fileStatus" />
+        <result column="file_system_code" property="fileSystemCode" />
+        <result column="file_paltform" property="filePaltform" />
+        <result column="file_service_name" property="fileServiceName" />
+        <result column="file_method_name" property="fileMethodName" />
+        <result column="file_owner_id" property="fileOwnerId" />
+        <result column="file_owner_name" property="fileOwnerName" />
+        <result column="tenant_id" property="tenantId" />
+        <result column="error_message" property="errorMessage" />
+        <result column="valid_state" property="validState" />
+        <result column="operator_id" property="operatorId" />
+        <result column="operator_name" property="operatorName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+      `file_id`,
+      `file_instance_code`,
+      `file_name`,
+      `file_md5_name`,
+      `file_path`,
+      `file_size`,
+      `file_extend`,
+      `file_status`,
+      `file_system_code`,
+      `file_paltform`,
+      `file_service_name`,
+      `file_method_name`,
+      `file_owner_id`,
+      `file_owner_name`,
+      `tenant_id`,
+      `error_message`,
+      `valid_state`,
+      `operator_id`,
+      `operator_name`,
+      `create_time`,
+      `update_time`
+<!--
+        file_id, file_instance_code, file_name, file_md5_name, file_path, file_size, file_extend, file_status, file_system_code, file_paltform, file_service_name, file_method_name, file_owner_id, file_owner_name, tenant_id, error_message, valid_state, operator_id, operator_name, create_time, update_time
+-->
+    </sql>
+
+    <select id="getListByCondition" parameterType="com.pig.easy.bpm.auth.dto.request.FileQueryDTO"
+            resultType="com.pig.easy.bpm.auth.dto.response.FileDTO">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            bpm_file t
+        where
+            1 = 1
+        <if test="fileId != null and fileId > 0">
+	         and t.file_id = #{fileId}
+        </if>
+
+	   <if test="fileInstanceCode != null and fileInstanceCode != ''">
+	         and t.file_instance_code = #{fileInstanceCode}
+        </if>
+
+	   <if test="fileName != null and fileName != ''">
+	         and t.file_name = #{fileName}
+        </if>
+
+	   <if test="fileMd5Name != null and fileMd5Name != ''">
+	         and t.file_md5_name = #{fileMd5Name}
+        </if>
+
+	   <if test="filePath != null and filePath != ''">
+	         and t.file_path = #{filePath}
+        </if>
+
+        <if test="fileSize != null ">
+	         and t.file_size = #{fileSize}
+        </if>
+
+	   <if test="fileExtend != null and fileExtend != ''">
+	         and t.file_extend = #{fileExtend}
+        </if>
+
+        <if test="fileStatus != null and fileStatus > 0">
+	         and t.file_status = #{fileStatus}
+        </if>
+
+	   <if test="fileSystemCode != null and fileSystemCode != ''">
+	         and t.file_system_code = #{fileSystemCode}
+        </if>
+
+	   <if test="filePaltform != null and filePaltform != ''">
+	         and t.file_paltform = #{filePaltform}
+        </if>
+
+	   <if test="fileServiceName != null and fileServiceName != ''">
+	         and t.file_service_name = #{fileServiceName}
+        </if>
+
+	   <if test="fileMethodName != null and fileMethodName != ''">
+	         and t.file_method_name = #{fileMethodName}
+        </if>
+
+        <if test="fileOwnerId != null and fileOwnerId > 0">
+	         and t.file_owner_id = #{fileOwnerId}
+        </if>
+
+	   <if test="fileOwnerName != null and fileOwnerName != ''">
+	         and t.file_owner_name = #{fileOwnerName}
+        </if>
+
+	   <if test="tenantId != null and tenantId != ''">
+	         and t.tenant_id = #{tenantId}
+        </if>
+
+	   <if test="errorMessage != null and errorMessage != ''">
+	         and t.error_message = #{errorMessage}
+        </if>
+
+		<if test="validState != null and validState >= 0">
+	         and t.valid_state = #{validState}
+        </if>
+
+        <if test="operatorId != null and operatorId > 0">
+	         and t.operator_id = #{operatorId}
+        </if>
+
+	   <if test="operatorName != null and operatorName != ''">
+	         and t.operator_name = #{operatorName}
+        </if>
+
+        <if test="createTime != null ">
+	         and t.create_time = #{createTime}
+        </if>
+
+        <if test="updateTime != null ">
+	         and t.update_time = #{updateTime}
+        </if>
+
+    </select>
+</mapper>

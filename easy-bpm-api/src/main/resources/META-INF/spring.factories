@@ -1,0 +1,6 @@
+
+#org.springframework.boot.autoconfigure.EnableAutoConfiguration= \
+#  com.pig.easy.bpm.api.config.EasyBpmApiAutoConfiguration
+## SpringApplicationRunListener
+#org.springframework.boot.SpringApplicationRunListener=\
+#  com.pig.easy.bpm.api.spring.listener.BpmSpringApplicationRunListener

@@ -1,0 +1,80 @@
+spring:
+  application:
+    name: easy-bpm-generator
+  profiles:
+    active: local
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      url: jdbc:mysql://120.77.218.141:3306/easy_bpm_generator?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+      username: root
+      password: 123456
+                # 初始连接数
+      initialSize: 5
+                # 最小连接池数量
+      minIdle: 10
+                # 最大连接池数量
+      maxActive: 20
+                # 配置获取连接等待超时的时间
+      maxWait: 60000
+                # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+                # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 300000
+                # 配置一个连接在池中最大生存的时间，单位是毫秒
+      maxEvictableIdleTimeMillis: 900000
+                # 配置检测连接是否有效
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+
+server:
+  port: 9999
+  servlet:
+    context-path: /api/code
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+  mapper-locations: classpath*:/mapper/*.xml
+
+swagger:
+  enable: false
+  controller: com.pig.easy.bpm.generator.controller
+  title: generator
+  description: generator
+  version: 1.0.0
+  license: MIT
+  licenseUrl: https://blog.csdn.net/zhuzhoulin
+  author: zhoulin.zhu
+  authorBlogUrl: https://blog.csdn.net/zhuzhoulin
+  email: 786289666@qq.com
+
+## 日志配置
+logback:
+  path: /data/logs
+  level: debug
+  moduleName: ${spring.application.name}
+
+## 创建表设置
+easy:
+  bpm:
+    # 日志
+    aspect:
+      # 是否启用切面日志
+      enable: true
+      # 日志切点
+      pointcut: execution(public * com.pig.easy.bpm.generator.controller..*.*(..))
+    generator:
+      init-data:
+        ## 是否需要创建表
+        auto-init-data: false
+        ## 碰到错误是否执行
+        continue-on-error: true
+        ## 编码格式
+        sql-script-encoding: utf-8
+      ## 版本号
+      version: 1.0.0

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pig.easy.bpm.api.mapper.VariableDictMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pig.easy.bpm.api.entity.VariableDictDO">
+        <id column="variable_id" property="variableId" />
+        <result column="process_id" property="processId" />
+        <result column="tenant_id" property="tenantId" />
+        <result column="data_key" property="dataKey" />
+        <result column="data_name" property="dataName" />
+        <result column="data_type" property="dataType" />
+        <result column="check_rule" property="checkRule" />
+        <result column="special_value" property="specialValue" />
+        <result column="special_value2" property="specialValue2" />
+        <result column="process_data" property="processData" />
+        <result column="sort" property="sort" />
+        <result column="allow_edit_node_id" property="allowEditNodeId" />
+        <result column="hidden_node_id" property="hiddenNodeId" />
+        <result column="required_node_id" property="requiredNodeId" />
+        <result column="remarks" property="remarks" />
+        <result column="valid_state" property="validState" />
+        <result column="operator_id" property="operatorId" />
+        <result column="operator_name" property="operatorName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+      `variable_id`,
+      `process_id`,
+      `tenant_id`,
+      `data_key`,
+      `data_name`,
+      `data_type`,
+      `check_rule`,
+      `special_value`,
+      `special_value2`,
+      `process_data`,
+      `sort`,
+      `allow_edit_node_id`,
+      `hidden_node_id`,
+      `required_node_id`,
+      `remarks`,
+      `valid_state`,
+      `operator_id`,
+      `operator_name`,
+      `create_time`,
+      `update_time`
+<!--
+        variable_id, process_id, tenant_id, data_key, data_name, data_type, check_rule, special_value, special_value2, process_data, sort, allow_edit_node_id, hidden_node_id, required_node_id, remarks, valid_state, operator_id, operator_name, create_time, update_time
+-->
+    </sql>
+
+    <select id="getListByCondition" parameterType="com.pig.easy.bpm.api.dto.request.VariableDictQueryDTO"
+            resultType="com.pig.easy.bpm.api.dto.response.VariableDictDTO">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            bpm_variable_dict t
+        where
+            1 = 1
+	   <if test="variableId != null and variableId > 0">
+	         and t.variable_id = #{variableId}
+        </if>
+
+	   <if test="processId != null and processId > 0">
+	         and t.process_id = #{processId}
+        </if>
+
+	   <if test="tenantId != null and tenantId != ''">
+	         and t.tenant_id = #{tenantId}
+        </if>
+
+	   <if test="dataKey != null and dataKey != ''">
+	         and t.data_key = #{dataKey}
+        </if>
+
+	   <if test="dataName != null and dataName != ''">
+	         and t.data_name = #{dataName}
+        </if>
+
+	   <if test="dataType != null and dataType != ''">
+	         and t.data_type = #{dataType}
+        </if>
+
+	   <if test="checkRule != null and checkRule != ''">
+	         and t.check_rule = #{checkRule}
+        </if>
+
+	   <if test="specialValue != null and specialValue != ''">
+	         and t.special_value = #{specialValue}
+        </if>
+
+	   <if test="specialValue2 != null and specialValue2 != ''">
+	         and t.special_value2 = #{specialValue2}
+        </if>
+
+        <if test="processData != null ">
+	         and t.process_data = #{processData}
+        </if>
+
+        <if test="sort != null and sort > 0">
+	         and t.sort = #{sort}
+        </if>
+
+	   <if test="allowEditNodeId != null and allowEditNodeId != ''">
+	         and t.allow_edit_node_id = #{allowEditNodeId}
+        </if>
+
+	   <if test="hiddenNodeId != null and hiddenNodeId != ''">
+	         and t.hidden_node_id = #{hiddenNodeId}
+        </if>
+
+	   <if test="requiredNodeId != null and requiredNodeId != ''">
+	         and t.required_node_id = #{requiredNodeId}
+        </if>
+
+	   <if test="remarks != null and remarks != ''">
+	         and t.remarks = #{remarks}
+        </if>
+
+		<if test="validState != null and validState >= 0">
+	         and t.valid_state = #{validState}
+        </if>
+
+	   <if test="operatorId != null and operatorId > 0">
+	         and t.operator_id = #{operatorId}
+        </if>
+
+	   <if test="operatorName != null and operatorName != ''">
+	         and t.operator_name = #{operatorName}
+        </if>
+
+        <if test="createTime != null ">
+	         and t.create_time = #{createTime}
+        </if>
+
+        <if test="updateTime != null ">
+	         and t.update_time = #{updateTime}
+        </if>
+
+    </select>
+</mapper>

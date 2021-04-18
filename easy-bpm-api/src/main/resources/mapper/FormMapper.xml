@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pig.easy.bpm.api.mapper.FormMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pig.easy.bpm.api.entity.FormDO">
+        <id column="form_id" property="formId" />
+        <result column="form_key" property="formKey" />
+        <result column="form_name" property="formName" />
+        <result column="tenant_id" property="tenantId" />
+        <result column="form_type" property="formType" />
+        <result column="sort" property="sort" />
+        <result column="form_data" property="formData" />
+        <result column="remarks" property="remarks" />
+        <result column="valid_state" property="validState" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="operator_id" property="operatorId" />
+        <result column="operator_name" property="operatorName" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+      `form_id`,
+      `form_key`,
+      `form_name`,
+      `tenant_id`,
+      `form_type`,
+      `sort`,
+      `form_data`,
+      `remarks`,
+      `valid_state`,
+      `create_time`,
+      `update_time`,
+      `operator_id`,
+      `operator_name`
+<!--
+        form_id, form_key, form_name, tenant_id, form_type, sort, form_data, remarks, valid_state, create_time, update_time, operator_id, operator_name
+-->
+    </sql>
+
+    <select id="getListByCondition" parameterType="com.pig.easy.bpm.api.dto.request.FormQueryDTO"
+            resultType="com.pig.easy.bpm.api.dto.response.FormDTO">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            bpm_form t
+        where
+            1 = 1
+	   <if test="formId != null and formId > 0">
+	         and t.form_id = #{formId}
+        </if>
+
+	   <if test="formKey != null and formKey != ''">
+	         and t.form_key = #{formKey}
+        </if>
+
+	   <if test="formName != null and formName != ''">
+	         and t.form_name like concat('%',#{formName},'%')
+        </if>
+
+	   <if test="tenantId != null and tenantId != ''">
+	         and t.tenant_id = #{tenantId}
+        </if>
+
+        <if test="formType != null and formType > 0">
+	         and t.form_type = #{formType}
+        </if>
+
+        <if test="sort != null and sort > 0">
+	         and t.sort = #{sort}
+        </if>
+
+	   <if test="formData != null and formData != ''">
+	         and t.form_data = #{formData}
+        </if>
+
+	   <if test="remarks != null and remarks != ''">
+	         and t.remarks = #{remarks}
+        </if>
+
+		<if test="validState != null and validState >= 0">
+	         and t.valid_state = #{validState}
+        </if>
+
+        <if test="createTime != null ">
+	         and t.create_time = #{createTime}
+        </if>
+
+        <if test="updateTime != null ">
+	         and t.update_time = #{updateTime}
+        </if>
+
+	   <if test="operatorId != null and operatorId > 0">
+	         and t.operator_id = #{operatorId}
+        </if>
+
+	   <if test="operatorName != null and operatorName != ''">
+	         and t.operator_name = #{operatorName}
+        </if>
+        order by t.form_id desc
+    </select>
+
+    <update id="updateFormByFormKey"  parameterType="com.pig.easy.bpm.api.entity.FormDO">
+    update bpm_form
+    <set>
+        <if test="formId != null and formId > 0">
+            form_id = #{formId},
+        </if>
+        <if test="formKey != null and formKey != ''">
+            form_key = #{formKey},
+        </if>
+        <if test="formName != null and formName != ''">
+            form_name = #{formName},
+        </if>
+        <if test="tenantId != null and tenantId != ''">
+            tenant_id = #{tenantId},
+        </if>
+        <if test="sort != null and sort > 0">
+            sort = #{sort},
+        </if>
+        <if test="formType != null and formType > 0">
+            form_type = #{formType},
+        </if>
+        <if test="formData != null and formData != ''">
+            form_data = #{formData},
+        </if>
+        <if test="remarks != null and remarks != ''">
+            remarks = #{remarks},
+        </if>
+        <if test="validState != null and validState >= 0">
+            valid_state = #{validState},
+        </if>
+        <if test="operatorId != null and operatorId > 0">
+            operator_id = #{operatorId},
+        </if>
+        <if test="operatorName != null and operatorName != null">
+            operator_name = #{operatorName},
+        </if>
+        update_time = now(),
+    </set>
+    where  form_key = #{formKey}
+    </update>
+</mapper>

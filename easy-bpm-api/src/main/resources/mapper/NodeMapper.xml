@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pig.easy.bpm.api.mapper.NodeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pig.easy.bpm.api.entity.NodeDO">
+        <id column="id" property="id" />
+        <result column="node_id" property="nodeId" />
+        <result column="node_name" property="nodeName" />
+        <result column="definition_id" property="definitionId" />
+        <result column="process_id" property="processId" />
+        <result column="process_key" property="processKey" />
+        <result column="tenant_id" property="tenantId" />
+        <result column="node_type" property="nodeType" />
+        <result column="task_type" property="taskType" />
+        <result column="priority" property="priority" />
+        <result column="form_key" property="formKey" />
+        <result column="form_name" property="formName" />
+        <result column="form_type" property="formType" />
+        <result column="user_id_list" property="userIdList" />
+        <result column="user_name_list" property="userNameList" />
+        <result column="role_group_code" property="roleGroupCode" />
+        <result column="role_group_name" property="roleGroupName" />
+        <result column="role_code" property="roleCode" />
+        <result column="role_name" property="roleName" />
+        <result column="find_user_type" property="findUserType" />
+        <result column="combine_type" property="combineType" />
+        <result column="assignee_field" property="assigneeField" />
+        <result column="select_path" property="selectPath" />
+        <result column="handler_strategy" property="handlerStrategy" />
+        <result column="relation_node_id" property="relationNodeId" />
+        <result column="action_list" property="actionList" />
+        <result column="skip_expression" property="skipExpression" />
+        <result column="expression" property="expression" />
+        <result column="source_ref" property="sourceRef" />
+        <result column="target_ref" property="targetRef" />
+        <result column="sequential" property="sequential" />
+        <result column="proportion" property="proportion" />
+        <result column="custom_sql" property="customSql" />
+        <result column="custom_data" property="customData" />
+        <result column="remarks" property="remarks" />
+        <result column="valid_state" property="validState" />
+        <result column="operator_id" property="operatorId" />
+        <result column="operator_name" property="operatorName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+      `id`,
+      `node_id`,
+      `node_name`,
+      `definition_id`,
+      `process_id`,
+      `process_key`,
+      `tenant_id`,
+      `node_type`,
+      `task_type`,
+      `priority`,
+      `form_key`,
+      `form_name`,
+      `form_type`,
+      `user_id_list`,
+      `user_name_list`,
+      `role_group_code`,
+      `role_group_name`,
+      `role_code`,
+      `role_name`,
+      `find_user_type`,
+      `combine_type`,
+      `assignee_field`,
+      `select_path`,
+      `handler_strategy`,
+      `relation_node_id`,
+      `action_list`,
+      `skip_expression`,
+      `expression`,
+      `source_ref`,
+      `target_ref`,
+      `sequential`,
+      `proportion`,
+      `custom_sql`,
+      `custom_data`,
+      `remarks`,
+      `valid_state`,
+      `operator_id`,
+      `operator_name`,
+      `create_time`,
+      `update_time`
+<!--
+        id, node_id, node_name, definition_id, process_id, process_key, tenant_id, node_type, task_type, priority, form_key, form_name, form_type, user_id_list, user_name_list, role_group_code, role_group_name, role_code, role_name, find_user_type, combine_type, assignee_field, select_path, handler_strategy, relation_node_id, action_list, skip_expression, expression, source_ref, target_ref, sequential, proportion, custom_sql, custom_data, remarks, valid_state, operator_id, operator_name, create_time, update_time
+-->
+    </sql>
+
+    <select id="getListByCondition" parameterType="com.pig.easy.bpm.api.dto.request.NodeQueryDTO"
+            resultType="com.pig.easy.bpm.api.dto.response.NodeDTO">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            bpm_node t
+        where
+            1 = 1
+	   <if test="id != null and id > 0">
+	         and t.id = #{id}
+        </if>
+
+	   <if test="nodeId != null and nodeId != ''">
+	         and t.node_id = #{nodeId}
+        </if>
+
+	   <if test="nodeName != null and nodeName != ''">
+	         and t.node_name like concat('%',#{nodeName},'%')
+        </if>
+
+	   <if test="definitionId != null and definitionId != ''">
+	         and t.definition_id = #{definitionId}
+        </if>
+
+	   <if test="processId != null and processId > 0">
+	         and t.process_id = #{processId}
+        </if>
+
+	   <if test="processKey != null and processKey != ''">
+	         and t.process_key = #{processKey}
+        </if>
+
+	   <if test="tenantId != null and tenantId != ''">
+	         and t.tenant_id = #{tenantId}
+        </if>
+
+	   <if test="nodeType != null and nodeType != ''">
+	         and t.node_type = #{nodeType}
+        </if>
+
+	   <if test="taskType != null and taskType != ''">
+	         and t.task_type = #{taskType}
+        </if>
+
+        <if test="priority != null and priority > 0">
+	         and t.priority = #{priority}
+        </if>
+
+	   <if test="formKey != null and formKey != ''">
+	         and t.form_key = #{formKey}
+        </if>
+
+	   <if test="formName != null and formName != ''">
+	         and t.form_name = #{formName}
+        </if>
+
+        <if test="formType != null and formType > 0">
+	         and t.form_type = #{formType}
+        </if>
+
+	   <if test="userIdList != null and userIdList != ''">
+	         and t.user_id_list = #{userIdList}
+        </if>
+
+	   <if test="userNameList != null and userNameList != ''">
+	         and t.user_name_list = #{userNameList}
+        </if>
+
+	   <if test="roleGroupCode != null and roleGroupCode != ''">
+	         and t.role_group_code = #{roleGroupCode}
+        </if>
+
+	   <if test="roleGroupName != null and roleGroupName != ''">
+	         and t.role_group_name = #{roleGroupName}
+        </if>
+
+	   <if test="roleCode != null and roleCode != ''">
+	         and t.role_code = #{roleCode}
+        </if>
+
+	   <if test="roleName != null and roleName != ''">
+	         and t.role_name = #{roleName}
+        </if>
+
+        <if test="findUserType != null and findUserType > 0">
+	         and t.find_user_type = #{findUserType}
+        </if>
+
+        <if test="combineType != null and combineType > 0">
+	         and t.combine_type = #{combineType}
+        </if>
+
+	   <if test="assigneeField != null and assigneeField != ''">
+	         and t.assignee_field = #{assigneeField}
+        </if>
+
+        <if test="selectPath != null and selectPath > 0">
+	         and t.select_path = #{selectPath}
+        </if>
+
+	   <if test="handlerStrategy != null and handlerStrategy != ''">
+	         and t.handler_strategy = #{handlerStrategy}
+        </if>
+
+	   <if test="relationNodeId != null and relationNodeId != ''">
+	         and t.relation_node_id = #{relationNodeId}
+        </if>
+
+	   <if test="actionList != null and actionList != ''">
+	         and t.action_list = #{actionList}
+        </if>
+
+	   <if test="skipExpression != null and skipExpression != ''">
+	         and t.skip_expression = #{skipExpression}
+        </if>
+
+	   <if test="expression != null and expression != ''">
+	         and t.expression = #{expression}
+        </if>
+
+	   <if test="sourceRef != null and sourceRef != ''">
+	         and t.source_ref = #{sourceRef}
+        </if>
+
+	   <if test="targetRef != null and targetRef != ''">
+	         and t.target_ref = #{targetRef}
+        </if>
+
+	   <if test="sequential != null and sequential != ''">
+	         and t.sequential = #{sequential}
+        </if>
+
+	   <if test="proportion != null and proportion != ''">
+	         and t.proportion = #{proportion}
+        </if>
+
+	   <if test="customSql != null and customSql != ''">
+	         and t.custom_sql = #{customSql}
+        </if>
+
+	   <if test="customData != null and customData != ''">
+	         and t.custom_data = #{customData}
+        </if>
+
+	   <if test="remarks != null and remarks != ''">
+	         and t.remarks = #{remarks}
+        </if>
+
+		<if test="validState != null and validState >= 0">
+	         and t.valid_state = #{validState}
+        </if>
+
+	   <if test="operatorId != null and operatorId > 0">
+	         and t.operator_id = #{operatorId}
+        </if>
+
+	   <if test="operatorName != null and operatorName != ''">
+	         and t.operator_name = #{operatorName}
+        </if>
+
+        <if test="createTime != null ">
+	         and t.create_time = #{createTime}
+        </if>
+
+        <if test="updateTime != null ">
+	         and t.update_time = #{updateTime}
+        </if>
+
+    </select>
+
+    <insert id="batchInsert" parameterType="com.pig.easy.bpm.api.entity.NodeDO">
+        insert into bpm_node (
+        `node_id`,
+        `node_name`,
+        `definition_id`,
+        `process_id`,
+        `process_key`,
+        `tenant_id`,
+        `node_type`,
+        `task_type`,
+        `priority`,
+        `form_key`,
+        `form_name`,
+        `user_id_list`,
+        `user_name_list`,
+        `role_group_code`,
+        `role_group_name`,
+        `role_code`,
+        `role_name`,
+        `find_user_type`,
+        `combine_type`,
+        `assignee_field`,
+        `select_path`,
+        `handler_strategy`,
+        `relation_node_id`,
+        `action_list`,
+        `skip_expression`,
+        `expression`,
+        `source_ref`,
+        `target_ref`,
+        `sequential`,
+        `proportion`,
+        `remarks`,
+        `valid_state`,
+        `operator_id`,
+        `operator_name`,
+        `create_time`,
+        `update_time`,
+        `custom_sql`,
+        `custom_data`
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.nodeId ,jdbcType=VARCHAR},
+            #{item.nodeName ,jdbcType=VARCHAR},
+            #{item.definitionId,jdbcType=VARCHAR},
+            #{item.processId,jdbcType=INTEGER},
+            #{item.processKey,jdbcType=VARCHAR},
+            #{item.tenantId,jdbcType=VARCHAR},
+            #{item.nodeType,jdbcType=VARCHAR},
+            #{item.taskType,jdbcType=VARCHAR},
+            #{item.priority,jdbcType=INTEGER},
+            #{item.formKey,jdbcType=VARCHAR},
+            #{item.formName,jdbcType=VARCHAR},
+            #{item.userIdList,jdbcType=VARCHAR},
+            #{item.userNameList,jdbcType=VARCHAR},
+            #{item.roleGroupCode,jdbcType=VARCHAR},
+            #{item.roleGroupName,jdbcType=VARCHAR},
+            #{item.roleCode,jdbcType=VARCHAR},
+            #{item.roleName,jdbcType=VARCHAR},
+            #{item.findUserType,jdbcType=INTEGER},
+            #{item.combineType,jdbcType=INTEGER},
+            #{item.assigneeField,jdbcType=VARCHAR},
+            #{item.selectPath,jdbcType=INTEGER},
+            #{item.handlerStrategy,jdbcType=VARCHAR},
+            #{item.relationNodeId,jdbcType=VARCHAR},
+            #{item.actionList,jdbcType=VARCHAR},
+            #{item.skipExpression,jdbcType=VARCHAR},
+            #{item.expression,jdbcType=VARCHAR},
+            #{item.sourceRef,jdbcType=VARCHAR},
+            #{item.targetRef,jdbcType=VARCHAR},
+            #{item.sequential,jdbcType=VARCHAR},
+            #{item.proportion,jdbcType=VARCHAR},
+            #{item.remarks,jdbcType=VARCHAR},
+            1,
+            #{item.operatorId,jdbcType=INTEGER},
+            #{item.operatorName,jdbcType=VARCHAR},
+            now(),
+            now(),
+            #{item.customSql,jdbcType=VARCHAR},
+            #{item.customData,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="list" index="index" item="item" open="" separator=";" close="">
+            update bpm_node t
+            <set>
+                <if test="item.id != null and item.id > 0">
+                    t.id = #{item.id},
+                </if>
+                <if test="item.nodeId != null and item.nodeId != ''">
+                    t.node_id = #{item.nodeId},
+                </if>
+                <if test="item.nodeName != null and item.nodeName != ''">
+                    t.node_name = #{item.nodeName},
+                </if>
+                <if test="item.definitionId != null and item.definitionId != ''">
+                    t.definition_id = #{item.definitionId},
+                </if>
+                <if test="item.processId != null and item.processId > 0">
+                    t.process_id = #{item.processId},
+                </if>
+                <if test="item.processKey != null and item.processKey != ''">
+                    t.process_key = #{item.processKey},
+                </if>
+                <if test="item.tenantId != null and item.tenantId != ''">
+                    t.tenant_id = #{item.tenantId},
+                </if>
+                <if test="item.nodeType != null and item.nodeType != ''">
+                    t.node_type = #{item.nodeType},
+                </if>
+                <if test="item.taskType != null and item.taskType != ''">
+                    t.task_type = #{item.taskType},
+                </if>
+                <if test="item.priority != null and item.priority > 0">
+                    t.priority = #{item.priority},
+                </if>
+                <if test="item.formKey != null and item.formKey != ''">
+                    t.form_key = #{item.formKey},
+                </if>
+                <if test="item.formName != null and item.formName != ''">
+                    t.form_name = #{item.formName},
+                </if>
+                <if test="item.userIdList != null and item.userIdList != ''">
+                    t.user_id_list = #{item.userIdList},
+                </if>
+                <if test="item.userNameList != null and item.userNameList != ''">
+                    t.user_name_list = #{item.userNameList},
+                </if>
+                <if test="item.roleGroupCode != null and item.roleGroupCode != ''">
+                    t.role_group_code = #{item.roleGroupCode},
+                </if>
+                <if test="item.roleGroupName != null and item.roleGroupName != ''">
+                    t.role_group_name = #{item.roleGroupName},
+                </if>
+                <if test="item.roleCode != null and item.roleCode != ''">
+                    t.role_code = #{item.roleCode},
+                </if>
+                <if test="item.roleName != null and item.roleName != ''">
+                    t.role_name = #{item.roleName},
+                </if>
+                <if test="item.findUserType != null and item.findUserType > 0">
+                    t.find_user_type = #{item.findUserType},
+                </if>
+                <if test="item.combineType != null and item.combineType > 0">
+                    t.combine_type = #{item.combineType},
+                </if>
+                <if test="item.assigneeField != null and item.assigneeField != ''">
+                    t.assignee_field = #{item.assigneeField},
+                </if>
+                <if test="item.selectPath != null and item.selectPath > 0">
+                    t.select_path = #{item.selectPath},
+                </if>
+                <if test="item.handlerStrategy != null and item.handlerStrategy != ''">
+                    t.handler_strategy = #{item.handlerStrategy},
+                </if>
+                <if test="item.relationNodeId != null and item.relationNodeId != ''">
+                    t.relation_node_id = #{item.relationNodeId},
+                </if>
+                <if test="item.actionList != null and item.actionList != ''">
+                    t.action_list = #{item.actionList},
+                </if>
+                <if test="item.skipExpression != null and item.skipExpression != ''">
+                    t.skip_expression = #{item.skipExpression},
+                </if>
+                <if test="item.expression != null and item.expression != ''">
+                    t.expression = #{item.expression},
+                </if>
+                <if test="item.sourceRef != null and item.sourceRef != ''">
+                    t.source_ref = #{item.sourceRef},
+                </if>
+                <if test="item.targetRef != null and item.targetRef != ''">
+                    t.target_ref = #{item.targetRef},
+                </if>
+                <if test="item.sequential != null and item.sequential != ''">
+                    t.sequential = #{item.sequential},
+                </if>
+                <if test="item.proportion != null and item.proportion != ''">
+                    t.proportion = #{item.proportion},
+                </if>
+                <if test="item.remarks != null and item.remarks != ''">
+                    t.remarks = #{item.remarks},
+                </if>
+                <if test="item.validState != null and item.validState >= 0">
+                    t.valid_state = #{item.validState},
+                </if>
+                <if test="item.operatorId != null and item.operatorId > 0">
+                    t.operator_id = #{item.operatorId},
+                </if>
+                <if test="item.operatorName != null and item.operatorName != ''">
+                    t.operator_name = #{item.operatorName},
+                </if>
+                <if test="customSql != null and customSql != ''">
+                   t.custom_sql = #{item.customSql},
+                </if>
+                <if test="customData != null and customData != ''">
+                   t.custom_data = #{item.customData},
+                </if>
+                t.create_time = now(),
+                t.update_time = now(),
+            </set>
+            where id = #{item.id}
+        </foreach>
+    </update>
+</mapper>

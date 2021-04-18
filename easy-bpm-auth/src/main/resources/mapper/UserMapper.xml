@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pig.easy.bpm.auth.mapper.UserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pig.easy.bpm.auth.entity.UserDO">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <result column="real_name" property="realName"/>
+        <result column="email" property="email"/>
+        <result column="phone" property="phone"/>
+        <result column="position_code" property="positionCode"/>
+        <result column="position_name" property="positionName"/>
+        <result column="gender" property="gender"/>
+        <result column="avatar" property="avatar"/>
+        <result column="birth_date" property="birthDate"/>
+        <result column="company_id" property="companyId"/>
+        <result column="dept_id" property="deptId"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="password" property="password"/>
+        <result column="entry_time" property="entryTime"/>
+        <result column="leave_time" property="leaveTime"/>
+        <result column="hire_status" property="hireStatus"/>
+        <result column="source" property="source"/>
+        <result column="lock_status" property="lockStatus"/>
+        <result column="valid_state" property="validState"/>
+        <result column="operator_id" property="operatorId"/>
+        <result column="operator_name" property="operatorName"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        `id`,
+        `user_id`,
+        `user_name`,
+        `real_name`,
+        `email`,
+        `phone`,
+        `position_code`,
+        `position_name`,
+        `gender`,
+        `avatar`,
+        `birth_date`,
+        `company_id`,
+        `dept_id`,
+        `tenant_id`,
+        `password`,
+        `entry_time`,
+        `leave_time`,
+        `hire_status`,
+        `source`,
+        `lock_status`,
+        `valid_state`,
+        `operator_id`,
+        `operator_name`,
+        `create_time`,
+        `update_time`
+        <!--
+                id, user_id, user_name, real_name, email, phone, position_code, position_name, gender, avatar, birth_date, company_id, dept_id, tenant_id, password, entry_time, leave_time, hire_status, source, lock_status, valid_state, operator_id, operator_name, create_time, update_time
+        -->
+    </sql>
+
+    <select id="login" parameterType="java.lang.String"
+            resultType="com.pig.easy.bpm.auth.entity.UserDO">
+        select
+        <include refid="Base_Column_List"/>
+        from bpm_user t
+        WHERE
+        t.valid_state=1
+        and (
+
+        t.user_id = #{userName}
+        OR t.user_name = #{userName}
+        OR t.`email` = #{userName}
+        )
+        LIMIT 1
+
+    </select>
+
+    <select id="getListByCondition" parameterType="com.pig.easy.bpm.auth.dto.request.UserQueryDTO"
+            resultType="com.pig.easy.bpm.auth.dto.response.UserDTO">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        bpm_user t
+        where
+        1 = 1
+        <if test="id != null and id != ''">
+            and t.id = #{id}
+        </if>
+
+        <if test="userId != null and userId > 0">
+            and t.user_id = #{userId}
+        </if>
+
+        <if test="userIdList != null and userIdList.size > 0">
+            and t.user_id in
+            <foreach collection="userIdList" item="item" index="index" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+
+        <if test="userName != null and userName != ''">
+            and t.user_name like concat('%',#{userName},'%')
+        </if>
+
+        <if test="realName != null and realName != ''">
+            and t.real_name like concat('%',#{realName},'%')
+        </if>
+
+        <if test="email != null and email != ''">
+            and t.email like concat('%',#{email},'%')
+        </if>
+
+        <if test="phone != null and phone != ''">
+            and t.phone = #{phone}
+        </if>
+
+        <if test="positionCode != null and positionCode != ''">
+            and t.position_code = #{positionCode}
+        </if>
+
+        <if test="positionName != null and positionName != ''">
+            and t.position_name = #{positionName}
+        </if>
+
+        <if test="gender != null and gender > 0">
+            and t.gender = #{gender}
+        </if>
+
+        <if test="avatar != null and avatar != ''">
+            and t.avatar = #{avatar}
+        </if>
+
+        <if test="birthDate != null ">
+            and t.birth_date = #{birthDate}
+        </if>
+
+        <if test="companyId != null and companyId > 0">
+            and t.company_id = #{companyId}
+        </if>
+
+        <if test="deptId != null and deptId > 0">
+            and t.dept_id = #{deptId}
+        </if>
+
+        <if test="tenantId != null and tenantId != ''">
+            and t.tenant_id = #{tenantId}
+        </if>
+
+        <if test="password != null and password != ''">
+            and t.password = #{password}
+        </if>
+
+        <if test="entryTime != null ">
+            and t.entry_time = #{entryTime}
+        </if>
+
+        <if test="leaveTime != null ">
+            and t.leave_time = #{leaveTime}
+        </if>
+
+        <if test="hireStatus != null and hireStatus > 0">
+            and t.hire_status = #{hireStatus}
+        </if>
+
+        <if test="source != null and source != ''">
+            and t.source = #{source}
+        </if>
+
+        <if test="lockStatus != null and lockStatus > 0">
+            and t.lock_status = #{lockStatus}
+        </if>
+
+        <if test="validState != null and validState >= 0">
+            and t.valid_state = #{validState}
+        </if>
+
+        <if test="operatorId != null and operatorId > 0">
+            and t.operator_id = #{operatorId}
+        </if>
+
+        <if test="operatorName != null and operatorName != ''">
+            and t.operator_name = #{operatorName}
+        </if>
+
+        <if test="createTime != null ">
+            and t.create_time = #{createTime}
+        </if>
+
+        <if test="updateTime != null ">
+            and t.update_time = #{updateTime}
+        </if>
+
+    </select>
+</mapper>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pig.easy.bpm.auth.mapper.DictItemMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pig.easy.bpm.auth.entity.DictItemDO">
+        <id column="item_id" property="itemId" />
+        <result column="dict_id" property="dictId" />
+        <result column="item_value" property="itemValue" />
+        <result column="item_text" property="itemText" />
+        <result column="parent_id" property="parentId" />
+        <result column="tenant_id" property="tenantId" />
+        <result column="sort" property="sort" />
+        <result column="remark" property="remark" />
+        <result column="valid_state" property="validState" />
+        <result column="operator_id" property="operatorId" />
+        <result column="operator_name" property="operatorName" />
+        <result column="update_time" property="updateTime" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+      `item_id`,
+      `dict_id`,
+      `item_value`,
+      `item_text`,
+      `parent_id`,
+      `tenant_id`,
+      `sort`,
+      `remark`,
+      `valid_state`,
+      `operator_id`,
+      `operator_name`,
+      `update_time`,
+      `create_time`
+<!--
+        item_id, dict_id, item_value, item_text, parent_id, tenant_id, sort, remark, valid_state, operator_id, operator_name, update_time, create_time
+-->
+    </sql>
+
+    <select id="getListByCondition" parameterType="com.pig.easy.bpm.auth.dto.request.DictItemQueryDTO"
+            resultType="com.pig.easy.bpm.auth.dto.response.DictItemDTO">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            bpm_dict_item t
+        where
+            1 = 1
+	   <if test="itemId != null and itemId > 0">
+	         and t.item_id = #{itemId}
+        </if>
+
+	   <if test="dictId != null and dictId > 0">
+	         and t.dict_id = #{dictId}
+        </if>
+
+	   <if test="itemValue != null and itemValue != ''">
+	         and t.item_value = #{itemValue}
+        </if>
+
+	   <if test="itemText != null and itemText != ''">
+	         and t.item_text = #{itemText}
+        </if>
+
+	   <if test="parentId != null and parentId > 0">
+	         and t.parent_id = #{parentId}
+        </if>
+
+	   <if test="tenantId != null and tenantId != ''">
+	         and t.tenant_id = #{tenantId}
+        </if>
+
+        <if test="sort != null and sort > 0">
+	         and t.sort = #{sort}
+        </if>
+
+	   <if test="remark != null and remark != ''">
+	         and t.remark = #{remark}
+        </if>
+
+		<if test="validState != null and validState >= 0">
+	         and t.valid_state = #{validState}
+        </if>
+
+	   <if test="operatorId != null and operatorId > 0">
+	         and t.operator_id = #{operatorId}
+        </if>
+
+	   <if test="operatorName != null and operatorName != ''">
+	         and t.operator_name = #{operatorName}
+        </if>
+
+        <if test="updateTime != null ">
+	         and t.update_time = #{updateTime}
+        </if>
+
+        <if test="createTime != null ">
+	         and t.create_time = #{createTime}
+        </if>
+
+    </select>
+
+    <select id="getListByDictCode" parameterType="java.lang.String"
+            resultType="com.pig.easy.bpm.auth.dto.response.DictItemDTO">
+        SELECT
+        di.item_id,
+        di.dict_id,
+        di.item_value,
+        di.item_text,
+        di.tenant_id,
+        di.sort,
+        di.remark,
+        di.valid_state,
+        di.operator_id,
+        di.operator_name,
+        di.update_time,
+        di.create_time
+        FROM
+        bpm_dict d,
+        bpm_dict_item di
+        where di.dict_id = d.dict_id
+        <if test="dictCode != null and dictCode !=''">
+            and d.dict_code = #{dictCode}
+        </if>
+        and di.valid_state = 1
+    </select>
+
+</mapper>

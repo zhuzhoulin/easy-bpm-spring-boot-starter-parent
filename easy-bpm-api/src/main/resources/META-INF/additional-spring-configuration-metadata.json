@@ -1,0 +1,47 @@
+{
+  "groups": [
+    {
+      "name": "easy.bpm.api",
+      "type": "com.pig.easy.bpm.api.property.EasyBpmApiProperties",
+      "sourceType": "com.pig.easy.bpm.api.property.EasyBpmApiProperties"
+    }
+  ],
+  "hints": [
+//    {
+//      "name": "easy.bpm.api",
+//      "providers": [
+//        {
+//          "name": "class-reference",
+//          "parameters": {
+//            "target": "com.pig.easy.bpm.common.property.BaseProperties"
+//          }
+//        }
+//      ]
+//    }
+  ],
+  "properties": [
+    {
+      "name": "easy.bpm.api.init-data",
+      "type": "com.pig.easy.bpm.api.property.InitDataProperties",
+      "description": "InitData."
+    },
+    {
+      "name": "easy.bpm.api.init-data.sql-dcript-encoding",
+      "type": "java.lang.String",
+      "defaultValue": "utf-8",
+      "description": "InitData sql script encoding."
+    },
+    {
+      "name": "easy.bpm.api.init-data.continue-on-error",
+      "type": "java.lang.Boolean",
+      "defaultValue": "true",
+      "description": "InitData continue on error."
+    },
+    {
+      "name": "easy.bpm.api.init-data.auto-init-data",
+      "type": "java.lang.Boolean",
+      "defaultValue": "false",
+      "description": "Enable autoInitData."
+    }
+  ]
+}

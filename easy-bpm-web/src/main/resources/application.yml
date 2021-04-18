@@ -1,0 +1,141 @@
+spring:
+  application:
+    name: spring-boot-easy-bpm-web
+  profiles:
+    active: local
+  # 资源信息
+  messages:
+    # 国际化资源文件路径
+    basename: i18n/messages
+  servlet:
+    # 文件上传
+    multipart:
+      enabled: true
+      # 单个文件大小
+      max-file-size: 20MB
+      # 设置总上传的文件大小
+      max-request-size: 20MB
+
+  datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      type: com.alibaba.druid.pool.DruidDataSource
+      druid:
+      # 主库数据源
+        master:
+          url: jdbc:mysql://120.77.218.141:3306/easy_bpm?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+          username: root
+          password: 123456
+            # 从库数据源
+        slave:
+            # 从数据源开关/默认关闭
+            enabled: false
+            url:
+            username:
+            password:
+            # 初始连接数
+        initialSize: 5
+            # 最小连接池数量
+        minIdle: 10
+            # 最大连接池数量
+        maxActive: 20
+            # 配置获取连接等待超时的时间
+        maxWait: 60000
+            # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+        timeBetweenEvictionRunsMillis: 60000
+            # 配置一个连接在池中最小生存的时间，单位是毫秒
+        minEvictableIdleTimeMillis: 300000
+            # 配置一个连接在池中最大生存的时间，单位是毫秒
+        maxEvictableIdleTimeMillis: 900000
+            # 配置检测连接是否有效
+        validationQuery: SELECT 1 FROM DUAL
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        webStatFilter:
+          enabled: true
+        statViewServlet:
+          enabled: true
+                # 设置白名单，不填则允许所有访问
+          allow:
+          url-pattern: /druid/*
+                # 控制台管理用户名和密码
+          login-username:
+          login-password:
+        filter:
+          stat:
+            enabled: true
+                    # 慢SQL记录
+            log-slow-sql: true
+            slow-sql-millis: 1000
+            merge-sql: true
+          wall:
+            config:
+              multi-statement-allow: true
+
+email:
+  smtpHost: smtp.qq.com
+  smtpPort: 465
+  smtpUsername: 786289666@qq.com
+  smtpPassword: cbpygngozmaabfae
+
+token:
+  header: userId
+  secret: easybpmdfagsgfhuhgirgvbmcknzdjkdfgdfb
+  issuer: easybpm
+  defaultUserPassword: 123456
+  expireTime: 120
+  refershExpireTime: 60
+
+redis:
+  ip: 120.77.218.141
+  port: 6379
+  database: 10
+  timeout: 0
+  pool:
+    max-idle: 30
+    min-idle: 0
+    max-active: 50
+  max-wait: 50000
+
+server:
+  port: 9993
+  servlet:
+     # 应用的访问路径
+    context-path: /api/lowCode
+  tomcat:
+      # tomcat的URI编码
+      uri-encoding: UTF-8
+      # tomcat最大线程数，默认为200
+      max-threads: 800
+      # Tomcat启动初始化的线程数，默认值25
+      min-spare-threads: 30
+
+# 项目相关配置
+
+
+easy:
+  bpm:
+    config:
+       # 名称
+      name: EasyBpm
+        # 版本
+      version: 1.0.0
+        # 版权年份
+      copyrightYear: 2021
+        # 实例演示开关
+      demoEnabled: true
+        # 文件路径 示例（ Windows配置D:/uploadPath，Linux配置 /home/uploadPath）
+      profile: /data/uploadPath
+        # 获取ip地址开关
+      addressEnabled: false
+        # 验证码类型 math 数组计算 char 字符验证
+      captchaType: char
+    aspect:
+      enable: true
+      pointcut: execution(public * com.pig.easy.bpm.web.*controller..*.*(..)) || execution (* com.pig.easy.bpm..*Impl.*(..))
+    api:
+      init-data:
+       # 如果需要创建表，则设置为 true ，否则为false
+        auto-init-data: true
+        continue-on-error: true
+        sql-script-encoding: utf-8

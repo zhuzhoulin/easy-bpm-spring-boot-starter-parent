@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pig.easy.bpm.generator.mapper.ColumnMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pig.easy.bpm.generator.entity.ColumnDO">
+        <id column="column_id" property="columnId" />
+        <result column="db_id" property="dbId" />
+        <result column="table_name" property="tableName" />
+        <result column="column_name" property="columnName" />
+        <result column="collation" property="collation" />
+        <result column="extra" property="extra" />
+        <result column="privileges" property="privileges" />
+        <result column="default_value" property="defaultValue" />
+        <result column="column_comment" property="columnComment" />
+        <result column="form_label" property="formLabel" />
+        <result column="property_type" property="propertyType" />
+        <result column="property_name" property="propertyName" />
+        <result column="column_type" property="columnType" />
+        <result column="key_flag" property="keyFlag" />
+        <result column="key_identity_flag" property="keyIdentityFlag" />
+        <result column="not_null" property="notNull" />
+        <result column="query_flag" property="queryFlag" />
+        <result column="query_method" property="queryMethod" />
+        <result column="insert_flag" property="insertFlag" />
+        <result column="update_flag" property="updateFlag" />
+        <result column="list_flag" property="listFlag" />
+        <result column="download_flag" property="downloadFlag" />
+        <result column="validate_type" property="validateType" />
+        <result column="validate_max_length" property="validateMaxLength" />
+        <result column="validate_min_length" property="validateMinLength" />
+        <result column="validate_max_value" property="validateMaxValue" />
+        <result column="validate_min_value" property="validateMinValue" />
+        <result column="form_type" property="formType" />
+        <result column="dict_code" property="dictCode" />
+        <result column="dict_name" property="dictName" />
+        <result column="tenant_id" property="tenantId" />
+        <result column="remarks" property="remarks" />
+        <result column="valid_state" property="validState" />
+        <result column="operator_id" property="operatorId" />
+        <result column="operator_name" property="operatorName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        column_id, db_id, table_name, column_name, collation, extra, privileges, default_value, column_comment, form_label, property_type, property_name, column_type, key_flag, key_identity_flag, not_null, query_flag, query_method, insert_flag, update_flag, list_flag, download_flag, validate_type, validate_max_length, validate_min_length, validate_max_value, validate_min_value, form_type, dict_code, dict_name, tenant_id, remarks, valid_state, operator_id, operator_name, create_time, update_time
+    </sql>
+
+    <select id="getListByCondition" parameterType="com.pig.easy.bpm.generator.dto.request.ColumnQueryDTO"
+            resultType="com.pig.easy.bpm.generator.dto.response.ColumnDTO">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            code_column t
+        where
+            1 = 1
+	   <if test="columnId != null and columnId > 0">
+	         and t.column_id = #{columnId}
+        </if>
+
+	   <if test="dbId != null and dbId > 0">
+	         and t.db_id like concat('%',#{dbId},'%')
+        </if>
+
+	   <if test="tableName != null and tableName != ''">
+	         and t.table_name like concat('%',#{tableName},'%')
+        </if>
+
+	   <if test="columnName != null and columnName != ''">
+	         and t.column_name like concat('%',#{columnName},'%')
+        </if>
+
+	   <if test="collation != null and collation != ''">
+	         and t.collation = #{collation}
+        </if>
+
+	   <if test="extra != null and extra != ''">
+	         and t.extra = #{extra}
+        </if>
+
+	   <if test="privileges != null and privileges != ''">
+	         and t.privileges = #{privileges}
+        </if>
+
+	   <if test="defaultValue != null and defaultValue != ''">
+	         and t.default_value = #{defaultValue}
+        </if>
+
+	   <if test="columnComment != null and columnComment != ''">
+	         and t.column_comment = #{columnComment}
+        </if>
+
+	   <if test="formLabel != null and formLabel != ''">
+	         and t.form_label = #{formLabel}
+        </if>
+
+	   <if test="propertyType != null and propertyType != ''">
+	         and t.property_type = #{propertyType}
+        </if>
+
+	   <if test="propertyName != null and propertyName != ''">
+	         and t.property_name = #{propertyName}
+        </if>
+
+	   <if test="columnType != null and columnType != ''">
+	         and t.column_type = #{columnType}
+        </if>
+
+        <if test="keyFlag != null and keyFlag > 0">
+	         and t.key_flag = #{keyFlag}
+        </if>
+
+        <if test="keyIdentityFlag != null and keyIdentityFlag > 0">
+	         and t.key_identity_flag = #{keyIdentityFlag}
+        </if>
+
+        <if test="notNull != null and notNull > 0">
+	         and t.not_null = #{notNull}
+        </if>
+
+        <if test="queryFlag != null and queryFlag > 0">
+	         and t.query_flag = #{queryFlag}
+        </if>
+
+	   <if test="queryMethod != null and queryMethod != ''">
+	         and t.query_method = #{queryMethod}
+        </if>
+
+        <if test="insertFlag != null and insertFlag > 0">
+	         and t.insert_flag = #{insertFlag}
+        </if>
+
+        <if test="updateFlag != null and updateFlag > 0">
+	         and t.update_flag = #{updateFlag}
+        </if>
+
+        <if test="listFlag != null and listFlag > 0">
+	         and t.list_flag = #{listFlag}
+        </if>
+
+        <if test="downloadFlag != null and downloadFlag > 0">
+	         and t.download_flag = #{downloadFlag}
+        </if>
+
+	   <if test="validateType != null and validateType != ''">
+	         and t.validate_type = #{validateType}
+        </if>
+
+	   <if test="validateMaxLength != null and validateMaxLength != ''">
+	         and t.validate_max_length = #{validateMaxLength}
+        </if>
+
+	   <if test="validateMinLength != null and validateMinLength != ''">
+	         and t.validate_min_length = #{validateMinLength}
+        </if>
+
+	   <if test="validateMaxValue != null and validateMaxValue != ''">
+	         and t.validate_max_value = #{validateMaxValue}
+        </if>
+
+	   <if test="validateMinValue != null and validateMinValue != ''">
+	         and t.validate_min_value = #{validateMinValue}
+        </if>
+
+	   <if test="formType != null and formType != ''">
+	         and t.form_type = #{formType}
+        </if>
+
+	   <if test="dictCode != null and dictCode != ''">
+	         and t.dict_code = #{dictCode}
+        </if>
+
+	   <if test="dictName != null and dictName != ''">
+	         and t.dict_name = #{dictName}
+        </if>
+
+	   <if test="tenantId != null and tenantId != ''">
+	         and t.tenant_id = #{tenantId}
+        </if>
+
+	   <if test="remarks != null and remarks != ''">
+	         and t.remarks = #{remarks}
+        </if>
+
+		<if test="validState != null and validState >= 0">
+	         and t.valid_state = #{validState}
+        </if>
+
+        <if test="operatorId != null and operatorId > 0">
+	         and t.operator_id = #{operatorId}
+        </if>
+
+	   <if test="operatorName != null and operatorName != ''">
+	         and t.operator_name = #{operatorName}
+        </if>
+
+        <if test="createTime != null ">
+	         and t.create_time = #{createTime}
+        </if>
+
+        <if test="updateTime != null ">
+	         and t.update_time = #{updateTime}
+        </if>
+
+    </select>
+</mapper>
