@@ -443,8 +443,8 @@ public class NodeServiceImpl extends BaseServiceImpl<NodeMapper, NodeDO> impleme
                     break;
                 case BpmConstant.FIND_USER_TYPE_BY_DESIGNATED_PERSONNEL:
                     if (dataMap.get(nodeInfoDTO.getAssigneeField()) != null) {
-                        String string = dataMap.get(nodeInfoDTO.getAssigneeField()).toString();
-                        split = nodeInfoDTO.getUserIdList().split(",");
+                        String userIdListStr = dataMap.get(nodeInfoDTO.getAssigneeField()).toString();
+                        split = userIdListStr.split(",");
                         for (String userId : split) {
                             if (StringUtils.isEmpty(userId)) {
                                 continue;

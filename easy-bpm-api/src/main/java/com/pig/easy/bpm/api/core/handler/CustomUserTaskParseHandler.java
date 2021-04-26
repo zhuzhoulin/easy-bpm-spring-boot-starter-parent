@@ -97,6 +97,12 @@ public class CustomUserTaskParseHandler extends UserTaskParseHandler {
         } else {
             multiInstanceLoopCharacteristics.setSequential(false);
         }
+        String proportion = FlowElementUtils.getAttributesFromExtensionElementByName(extensionElement, "proportion");
+        if (StringUtils.isEmpty(multiInstanceLoopCharacteristics.getCompletionCondition())
+                && !StringUtils.isEmpty(proportion)) {
+            multiInstanceLoopCharacteristics.setCompletionCondition("${nrOfCompletedInstances/nrOfInstances >= " + CommonUtils.evalInt(proportion)/100 + "}");
+        }
+
         userTask.setLoopCharacteristics(multiInstanceLoopCharacteristics);
 
          /*  跳过表达式
