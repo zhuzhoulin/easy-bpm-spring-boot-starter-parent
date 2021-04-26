@@ -2,6 +2,7 @@ package com.pig.easy.bpm.api.core.handler;
 
 
 import com.pig.easy.bpm.api.utils.FlowElementUtils;
+import com.pig.easy.bpm.common.utils.CommonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.flowable.bpmn.model.*;
