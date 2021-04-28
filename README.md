@@ -9,7 +9,9 @@ bpm
 
 [在线体验地址](http://120.77.218.141:9992/bpm-web/index.html)
 
-[前端项目路径](https://gitee.com/zhuzl002/bpm-web)
+[文档地址](http://120.77.218.141:9992/low-code-docs/)
+
+[前端项目路径](https://gitee.com/zhuzl002/bpm-web-ui)
 #### 开源目的
 
 源于开源，回馈开源 。目前国内缺乏一个完整的开源流程引擎，因此想弥补一下这个空白，为后浪降低壁垒-。-

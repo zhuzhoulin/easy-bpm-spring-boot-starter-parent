@@ -79,7 +79,6 @@ public class CustomUserTaskParseHandler extends UserTaskParseHandler {
 
         ExtensionElement extensionElement = FlowElementUtils.getExtensionElementFromFlowElementByName(userTask, null);
 
-        // 如果是单实例，这里默认设置为 并行多实例
         MultiInstanceLoopCharacteristics multiInstanceLoopCharacteristics = new MultiInstanceLoopCharacteristics();
         multiInstanceLoopCharacteristics.setInputDataItem(DEFAULT_ASSIGNEE_LIST_EXP);
         multiInstanceLoopCharacteristics.setElementVariable(DEFAULT_ASSIGNEE_USER_EXP);

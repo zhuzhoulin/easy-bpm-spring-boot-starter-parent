@@ -136,6 +136,6 @@ easy:
     api:
       init-data:
        # 如果需要创建表，则设置为 true ，否则为false
-        auto-init-data: true
+        auto-init-data: false
         continue-on-error: true
         sql-script-encoding: utf-8

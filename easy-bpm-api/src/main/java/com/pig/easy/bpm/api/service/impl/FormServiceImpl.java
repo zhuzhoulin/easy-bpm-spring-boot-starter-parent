@@ -120,8 +120,11 @@ public class FormServiceImpl extends BaseServiceImpl<FormMapper, FormDO> impleme
         }
 
         Result<FormDTO> result2 = getFormByFormKey(formKey);
-        if (result2.getEntityError().getCode() != EntityError.SUCCESS.getCode()) {
-            return Result.responseError(result2.getEntityError());
+        if (result2.getEntityError().getCode() == EntityError.ILLEGAL_ARGUMENT_ERROR.getCode()) {
+            FormDTO defaultForm = new FormDTO();
+            defaultForm.setFormKey(formKey);
+            defaultForm.setFormData("{\"config\":{\"labelPosition\":\"left\",\"labelWidth\":15,\"autoLabelWidth\":false},\"list\":[],\"dynamicKeyList\":[]}");
+            result2=Result.responseSuccess(defaultForm);
         }
 
         dynamicFormDataDTO.setFormJsonData(StringEscapeUtils.unescapeJava(result2.getData().getFormData()));

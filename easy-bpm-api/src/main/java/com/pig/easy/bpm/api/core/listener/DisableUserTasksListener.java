@@ -62,7 +62,7 @@ public class DisableUserTasksListener implements ExecutionListener {
             }
             result3.getData().stream().filter(temp ->
                     temp.getTaskStatus() < TaskConstant.TASK_COMPLETED
-                            && flowUserTaskMap.get(temp.getActTaskId()) == null).forEach(
+                            && flowUserTaskMap.get(temp.getActTaskId()) != null).forEach(
                     userTask -> {
                         UserTaskUpdateDTO disableUserTask = BeanUtils.switchToDTO(userTask, UserTaskUpdateDTO.class);
                         disableUserTask.setUpdateTime(LocalDateTime.now());

@@ -253,7 +253,9 @@ public class ProcessDetailServiceImpl extends BaseServiceImpl<ProcessDetailMappe
         tempProcessDetail.setOperatorId(operatorId);
         tempProcessDetail.setUpdateTime(LocalDateTime.now());
         mapper.update(tempProcessDetail, new QueryWrapper<ProcessDetailDO>()
-                .eq("process_id", processId).ne("process_detail_id", processDetailId));
+                .eq("main_version",BpmConstant.PROCESS_DERTAIL_IS_MAIN_VERSION)
+                .eq("process_id", processId)
+                .ne("process_detail_id", processDetailId));
 
         ProcessDetailSaveOrUpdateDTO processDetailQueryDTO = new ProcessDetailSaveOrUpdateDTO();
         processDetailQueryDTO.setProcessDetailId(processDetailId);
