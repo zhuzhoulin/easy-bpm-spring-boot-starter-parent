@@ -48,8 +48,7 @@ public class DisableUserTasksListener implements ExecutionListener {
         Long applyId = CommonUtils.evalLong(delegateExecution.getVariable(BpmConstant.APPLY_ID));
 
         if (applyId > 0) {
-            /* 获取执行树下的任务编号 */
-            List<Task> list = taskService.createTaskQuery().processInstanceId(delegateExecution.getProcessInstanceId()).taskDefinitionKey(delegateExecution.getCurrentActivityId()).list();
+            List<Task> list = taskService.createTaskQuery().processInstanceId(delegateExecution.getProcessInstanceId()).executionId(delegateExecution.getId()).taskDefinitionKey(delegateExecution.getCurrentActivityId()).list();
 
             HashMap<String, Task> flowUserTaskMap = new HashMap<>();
             for (Task task : list) {

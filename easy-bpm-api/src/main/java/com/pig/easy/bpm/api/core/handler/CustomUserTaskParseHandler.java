@@ -77,6 +77,15 @@ public class CustomUserTaskParseHandler extends UserTaskParseHandler {
             userTask.getTaskListeners().add(createListener);
         }
 
+        FlowableListener deleteListener = new FlowableListener();
+        deleteListener.setEvent(TaskListener.EVENTNAME_DELETE);
+        deleteListener.setImplementationType(ImplementationType.IMPLEMENTATION_TYPE_DELEGATEEXPRESSION);
+        deleteListener.setImplementation("#{deleteUserTaskListener}");
+
+        if (userTaskListernerMap.get(deleteListener.getImplementation()) == null) {
+            userTask.getTaskListeners().add(deleteListener);
+        }
+
         ExtensionElement extensionElement = FlowElementUtils.getExtensionElementFromFlowElementByName(userTask, null);
 
         MultiInstanceLoopCharacteristics multiInstanceLoopCharacteristics = new MultiInstanceLoopCharacteristics();
